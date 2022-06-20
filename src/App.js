@@ -1,28 +1,31 @@
 import React from 'react';
-import './App.css';
 import { Route, Switch } from 'react-router-dom';
+import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Profile from './pages/Profile';
+import Foods from './pages/Foods';
+import Drinks from './pages/Drinks';
 
 function App() {
   return (
     <div className="App">
       <Switch>
-        <Route exact path="/" />
+        {/* <Route exact path="/" />
         <Route path="/foods/:recipe-id/in-progress" />
         <Route path="/drinks/:recipe-id/in-progress" />
         <Route path="/foods/:recipe-id" />
-        <Route path="/drinks/:recipe-id" />
-        <Route path="/foods" />
-        <Route path="/drinks" />
-        <Route path="/explore/foods/ingredients" />
+        <Route path="/drinks/:recipe-id" /> */}
+        <Route path="/foods" component={ Foods } />
+        <Route path="/drinks" component={ Drinks } />
+        {/* <Route path="/explore/foods/ingredients" />
         <Route path="/explore/drinks/ingredients" />
         <Route path="/explore/foods" />
         <Route path="/explore/drinks" />
         <Route path="/explore/foods/nationalities" />
-        <Route path="/explore" />
-        <Route path="/profile" />
-        <Route path="/done-recipes" />
-        <Route path="/favorite-recipes" />
+        <Route path="/explore" /> */}
+        <Route path="/profile" component={ Profile } />
+        {/* <Route path="/done-recipes" />
+        <Route path="/favorite-recipes" /> */}
       </Switch>
     </div>
   );
