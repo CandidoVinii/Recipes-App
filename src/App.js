@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/done-recipes" />
         <Route path="/favorite-recipes" />
       </Switch>
+      <Footer />
     </div>
   );
 }
