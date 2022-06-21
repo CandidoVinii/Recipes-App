@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../../components/Header';
+import RecipeFilterButtons from '../../components/RecipeFilterButtons';
 
 const foodsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const drinksUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -26,13 +27,10 @@ function Foods({ history }) {
     fetchFoods();
   }, [url, recipeTypes]);
 
-  useEffect(() => {
-
-  }, []);
-
   return (
     <>
       <Header title={ pathname === '/foods' ? 'Foods' : 'Drinks' } />
+      <RecipeFilterButtons history={ history } />
       <div>
         {
           recipes.map((recipe, index) => (
