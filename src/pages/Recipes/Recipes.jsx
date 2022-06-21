@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD:src/pages/Recipes/Recipes.jsx
+import Header from '../../components/Header';
+import RecipeFilterButtons from '../../components/RecipeFilterButtons';
+=======
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import RecipeFilterButtons from '../components/RecipeFilterButtons';
+>>>>>>> d44ee6bc95de76cededa9594d58140e1caac17a4:src/pages/Home.jsx
 
 const foodsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const drinksUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -50,7 +54,7 @@ function Foods({ history }) {
                     </p>
                   </Link>)
                 : (
-                  <Link to={ `${pathname}/${recipe.idDrink}` }>
+                  <Link to={ `/${pathname}/${recipe.idDrink}` }>
                     <img
                       data-testid={ `${index}-card-img` }
                       src={ recipe.strDrinkThumb }

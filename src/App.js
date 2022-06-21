@@ -1,7 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Drinks from './pages/Drinks';
 import DoneRecipes from './pages/DoneRecipes';
 import Explore from './pages/Explore';
@@ -15,6 +13,8 @@ import Login from './pages/login/Login';
 import Nationalities from './pages/Nationalities';
 import Profile from './pages/Profile';
 import Progress from './pages/Progress';
+import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
