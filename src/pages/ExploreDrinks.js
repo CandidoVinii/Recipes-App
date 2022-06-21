@@ -1,10 +1,14 @@
 import React from 'react';
 import Header from '../componentes/Header';
 import profileIcon from '../images/profileIcon.svg';
+import Footer from '../components/Footer';
 
 function ExploreDrinks() {
   return (
-    <Header title="Explore Drinks" profileIcon={ profileIcon } />
+    <>
+      <Footer />
+      <Header title="Explore Drinks" profileIcon={ profileIcon } />
+    </>
   );
 }
 

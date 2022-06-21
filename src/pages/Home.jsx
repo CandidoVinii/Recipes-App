@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const foodsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const drinksUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -67,6 +68,7 @@ function Foods({ history }) {
           ))
         }
       </div>
+      <Footer />
     </>
   );
 }
