@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login/Login';
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <Switch>
         <Route exact path="/" component={ Login } />
         <Route path="/foods/:recipe-id/in-progress" />
         <Route path="/drinks/:recipe-id/in-progress" />
@@ -24,7 +24,7 @@ function App() {
         <Route path="/profile" />
         <Route path="/done-recipes" />
         <Route path="/favorite-recipes" />
-      </BrowserRouter>
+      </Switch>
     </div>
   );
 }
