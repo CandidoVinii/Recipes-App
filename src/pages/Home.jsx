@@ -50,7 +50,7 @@ function Foods({ history }) {
                     </p>
                   </Link>)
                 : (
-                  <Link to={ `/${pathname}/${recipe.idDrink}` }>
+                  <Link to={ `${pathname}/${recipe.idDrink}` }>
                     <img
                       data-testid={ `${index}-card-img` }
                       src={ recipe.strDrinkThumb }
