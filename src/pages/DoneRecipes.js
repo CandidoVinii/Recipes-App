@@ -2,12 +2,10 @@ import React from 'react';
 import Header from '../componentes/Header';
 import profileIcon from '../images/profileIcon.svg';
 
-function Profile() {
+function DoneRecipes() {
   return (
-    <div>
-      <Header title="Profile" profileIcon={ profileIcon } />
-    </div>
+    <Header title="Done Recipes" profileIcon={ profileIcon } />
   );
 }
 
-export default Profile;
+export default DoneRecipes;
