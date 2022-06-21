@@ -1,7 +1,8 @@
 import React from 'react';
-import './App.css';
 import { Route, Switch } from 'react-router-dom';
+import Profile from './pages/Profile';
 import Recipes from './pages/Recipes';
+import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
         <Route path="/explore/drinks" />
         <Route path="/explore/foods/nationalities" />
         <Route path="/explore" />
-        <Route path="/profile" />
+        <Route path="/profile" component={ Profile } />
         <Route path="/done-recipes" />
         <Route path="/favorite-recipes" />
       </Switch>
