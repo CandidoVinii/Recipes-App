@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD:src/pages/Recipes/Recipes.jsx
-import Header from '../../components/Header';
-import RecipeFilterButtons from '../../components/RecipeFilterButtons';
-=======
 import Header from '../components/Header';
 import Footer from '../components/Footer';
->>>>>>> d44ee6bc95de76cededa9594d58140e1caac17a4:src/pages/Home.jsx
+import RecipeFilterButtons from '../components/RecipeFilterButtons';
 
 const foodsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const drinksUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
