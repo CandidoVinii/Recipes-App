@@ -2,12 +2,13 @@ import React from 'react';
 import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SearchInput from './components/SeachInput';
 
 function App() {
   return (
     <div className="App">
       <Switch>
-        <Route exact path="/" />
+        <Route exact path="/" component={ SearchInput } />
         <Route path="/foods/:recipe-id/in-progress" />
         <Route path="/drinks/:recipe-id/in-progress" />
         <Route path="/foods/:recipe-id" />
