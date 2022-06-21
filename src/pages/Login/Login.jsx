@@ -9,6 +9,7 @@ function Login() {
 
   const loginRequiriments = () => {
     const PASSWORD_LIMIT_SIZE = 6;
+    // função regex para verificar os requerimentos do login.
     const emailRegex = /\S+@\S+\.\S+/i;
     return emailRegex.test(email) && password && password.length > PASSWORD_LIMIT_SIZE;
   };
