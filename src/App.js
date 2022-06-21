@@ -4,12 +4,13 @@ import Profile from './pages/Profile';
 import Recipes from './pages/Recipes';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './pages/Login/Login';
 
 function App() {
   return (
     <div className="App">
       <Switch>
-        <Route exact path="/" />
+        <Route exact path="/" component={ Login } />
         <Route path="/foods/:recipe-id/in-progress" />
         <Route path="/drinks/:recipe-id/in-progress" />
         <Route path="/foods/:recipe-id" />
