@@ -10,7 +10,7 @@ import ExploreFoods from './pages/ExploreFoods';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Foods from './pages/Foods';
 import Home from './pages/Home';
-import Ingredients from './pages/Ingredientes';
+import Ingredients from './pages/Ingredients';
 import Login from './pages/login/Login';
 import Nationalities from './pages/Nationalities';
 import Profile from './pages/Profile';
