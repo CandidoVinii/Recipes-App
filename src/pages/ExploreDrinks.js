@@ -3,13 +3,13 @@ import Header from '../components/Header';
 import profileIcon from '../images/profileIcon.svg';
 import Footer from '../components/Footer';
 
-function Profile() {
+function ExploreDrinks() {
   return (
-    <div>
-      <Header title="Profile" profileIcon={ profileIcon } />
+    <>
       <Footer />
-    </div>
+      <Header title="Explore Drinks" profileIcon={ profileIcon } />
+    </>
   );
 }
 
-export default Profile;
+export default ExploreDrinks;
