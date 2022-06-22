@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import Context from './Context';
 
 function ContextProvider({ children }) {
-  const [category, setCategory] = useState('');
   const [doneFilter, setDoneFilter] = useState('all');
+  const [isFilteredByCategory, setIsFilteredByCategory] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const context = {
-    category,
-    setCategory,
     doneFilter,
     setDoneFilter,
+    isFilteredByCategory,
+    setIsFilteredByCategory,
+    selectedCategory,
+    setSelectedCategory,
   };
 
   return (
