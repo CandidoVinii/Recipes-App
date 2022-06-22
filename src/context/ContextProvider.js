@@ -4,9 +4,12 @@ import Context from './Context';
 
 function ContextProvider({ children }) {
   const [category, setCategory] = useState('');
+  const [doneFilter, setDoneFilter] = useState('all');
   const context = {
     category,
     setCategory,
+    doneFilter,
+    setDoneFilter,
   };
 
   return (
