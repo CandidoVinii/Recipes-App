@@ -1,11 +1,18 @@
-// import React from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-// function Card() {
-//   return (
-//     <div>
+function Card({ recipes }) {
+  return (
+    <div>
+      <h1>{ recipes.type }</h1>
+    </div>
+  );
+}
 
-//     </div>
-//   );
-// }
+Card.propTypes = {
+  recipes: PropTypes.arrayOf(
+    PropTypes.shape(),
+  ).isRequired,
+};
 
-// export default Card;
+export default Card;
