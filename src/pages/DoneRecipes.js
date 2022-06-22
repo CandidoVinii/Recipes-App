@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Card from '../components/Card';
 import Header from '../components/Header';
 import profileIcon from '../images/profileIcon.svg';
-import RecipeFilters from '../components/RecipeFilters';
+import DoneFilters from '../components/DoneFilters';
 
 function DoneRecipes() {
   useEffect(() => {
@@ -25,7 +25,7 @@ function DoneRecipes() {
   return (
     <>
       <Header title="Done Recipes" profileIcon={ profileIcon } />
-      <RecipeFilters />
+      <DoneFilters />
       <Card recipes={ completeRecipes } />
     </>
   );
