@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { fetchFoodsByCategory, setMaxNumberOfRecipes } from '../services/api';
 import Context from '../context/Context';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -14,11 +15,13 @@ const drinksByCategoryUrl = 'https://www.thecocktaildb.com/api/json/v1/1/filter.
 function Foods({ history }) {
   const { location: { pathname } } = history;
 
-  const recipeTypes = pathname === '/foods' ? 'meals' : 'drinks';
+  const defaultUrl = pathname === '/foods' ? foodsUrl : drinksUrl;
+  const key = pathname === '/foods' ? 'meals' : 'drinks';
   const recipeType = pathname === '/foods' ? 'Meal' : 'Drink';
 
-  const [urlToFetch, setUrlToFetch] = useState('');
-  const [recipes, setRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [recipesFromAPI, setRecipesFromAPI] = useState([]);
+  const [urlToFetch, setUrlToFetch] = useState(defaultUrl);
   const { selectedCategory } = useContext(Context);
 
   useEffect(() => {
@@ -33,29 +36,25 @@ function Foods({ history }) {
   }, [pathname, selectedCategory]);
 
   useEffect(() => {
-    async function fetchFoods() {
-      const MAX_MEALS_PER_PAGE = 12;
-      const response = await fetch(urlToFetch);
-      const data = await response.json();
-      let newRecipes = Object.create(data);
-      console.log('data', data);
-      if (data[recipeTypes].length > MAX_MEALS_PER_PAGE) {
-        newRecipes = newRecipes[recipeTypes].splice(0, MAX_MEALS_PER_PAGE);
-        setRecipes(newRecipes);
-      } else {
-        newRecipes = newRecipes[recipeTypes];
-        setRecipes(newRecipes);
-      }
+    const fetchRecipes = async () => {
+      const recipes = await fetchFoodsByCategory(urlToFetch);
+      setRecipesFromAPI(recipes[key]);
+    };
+    fetchRecipes();
+  }, [key, urlToFetch]);
+
+  useEffect(() => {
+    if (recipesFromAPI.length > 0) {
+      setMaxNumberOfRecipes(recipesFromAPI, setFilteredRecipes);
     }
-    fetchFoods();
-  }, [recipeTypes, selectedCategory, urlToFetch]);
+  }, [key, recipeType, recipesFromAPI]);
 
   return (
     <>
       <Header title={ pathname === '/foods' ? 'Foods' : 'Drinks' } />
       <RecipeFilterButtons history={ history } />
       <div>
-        {recipes.map((recipe, index) => (
+        {filteredRecipes.map((recipe, index) => (
           <RecipeCard
             key={ `recipe-${index}` }
             props={ { index, pathname, recipe, recipeType } }
