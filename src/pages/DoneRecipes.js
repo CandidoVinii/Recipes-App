@@ -6,17 +6,17 @@ import RecipeFilters from '../components/RecipeFilters';
 
 function DoneRecipes() {
   useEffect(() => {
-    const mock = {
+    const mock = [{
       id: 16541654,
-      type: 'sobremesa',
+      type: 'food',
       nationality: 'peruana',
-      category: 'categoia X',
+      category: 'sobremesa',
       alcoholicOrNot: [],
       name: 'Torta de Mirtillo',
       image: profileIcon,
       doneDate: '23/05/2021',
       tags: ['gelada', 'doce'],
-    };
+    }];
     localStorage.setItem('doneRecipes', JSON.stringify(mock));
   }, []);
 
