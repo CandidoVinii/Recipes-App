@@ -24,7 +24,7 @@ function RecipeFilterButtons({ history }) {
         response = await fetch(drinkCategoriesUrl);
       }
       const data = await response.json();
-      const newCategories = Object.values(data)[0].splice(0, MAX_CATEGORIES);
+      const newCategories = Object.values(data)[0].slice(0, MAX_CATEGORIES);
       setCategoriesList(newCategories);
     }
     fetchCategories();
