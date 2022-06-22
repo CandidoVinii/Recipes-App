@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import mealIcon from '../images/mealIcon.svg';
+import Context from '../context/Context';
 
 function Card({ recipes }) {
+  const { doneFilter } = useContext(Context);
+  if (doneFilter !== 'all') {
+    recipes = recipes.filter((recipe) => recipe.type === doneFilter);
+  }
   return (
     <div>
       { recipes.map((recipe, index) => (
