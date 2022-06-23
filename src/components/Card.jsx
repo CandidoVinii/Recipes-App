@@ -36,7 +36,7 @@ function Card({ recipes }) {
           </button>
           { recipe.tags.map((tag, indice) => (
             <div key={ indice }>
-              <span data-testid={ `${indice}-${recipe.tags[indice]}-horizontal-tag` }>
+              <span data-testid={ `${index}-${recipe.tags[indice]}-horizontal-tag` }>
                 {tag}
               </span>
             </div>
