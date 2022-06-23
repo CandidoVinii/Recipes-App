@@ -10,6 +10,13 @@ function Card({ recipes }) {
   if (doneFilter !== 'all') {
     recipes = recipes.filter((recipe) => recipe.type === doneFilter);
   }
+
+  function shareClick({ currentTarget }) {
+    /* Utiliza-se currentTarget aqui porque o botao possui uma imagem interna, assim, quando ele e clicado, as vezes o 'target' e a imagem, outras e o botao. Porem, precisamos sempre acessar o botao porque a informacao da URL e salva nele. Daí usamos o currentTarget porque indica qual o elemento que de fato tem o tratador associado, logo usar ele permite sempre acessar o botao */
+    const recipeURL = `${window.location.origin}${currentTarget.value}`;
+    navigator.clipboard.writeText(recipeURL);
+  }
+
   return (
     <div>
       { recipes.map((recipe, index) => (
@@ -62,6 +69,8 @@ function Card({ recipes }) {
           <button
             data-testid={ `${index}-horizontal-share-btn` }
             type="button"
+            value={ `/${recipe.type}s/${recipe.id}` }
+            onClick={ shareClick }
           >
             <img src={ shareIcon } alt="compartilhar" />
           </button>

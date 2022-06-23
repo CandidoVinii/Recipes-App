@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import profileIcon from '../images/profileIcon.svg';
 import DoneFilters from '../components/DoneFilters';
 
+// SETUP DO MOCK - remover mock abaixo após finalização da página de progresso.
 const mock = [{
   id: 16541654,
   type: 'food',

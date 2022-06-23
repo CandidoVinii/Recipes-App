@@ -32,7 +32,7 @@ function DoneFilters() {
         name="drink"
         onClick={ filterClick }
       >
-        Drinks
+        Drink
       </button>
     </div>
   );
