@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import mealIcon from '../images/mealIcon.svg';
 import Context from '../context/Context';
@@ -13,19 +14,49 @@ function Card({ recipes }) {
     <div>
       { recipes.map((recipe, index) => (
         <div key={ index }>
-          <img
-            src={ mealIcon }
-            alt="mealImage"
-            data-testid={ `${index}-horizontal-image` }
-          />
+          {
+            recipe.type === 'food'
+              ? (
+                <Link to={ `foods/${recipe.id}` }>
+                  <img
+                    src={ mealIcon }
+                    alt="mealImage"
+                    data-testid={ `${index}-horizontal-image` }
+                  />
+                </Link>
+              )
+              : (
+                <Link to={ `drinks/${recipe.id}` }>
+                  <img
+                    src={ mealIcon }
+                    alt="mealImage"
+                    data-testid={ `${index}-horizontal-image` }
+                  />
+                </Link>
+              )
+          }
           <span>{ recipe.nationality }</span>
           <span> - </span>
           <span data-testid={ `${index}-horizontal-top-text` }>
             { recipe.category }
           </span>
-          <h4 data-testid={ `${index}-horizontal-name` }>
-            { recipe.name }
-          </h4>
+          {
+            recipe.type === 'food'
+              ? (
+                <Link to={ `foods/${recipe.id}` }>
+                  <h4 data-testid={ `${index}-horizontal-name` }>
+                    { recipe.name }
+                  </h4>
+                </Link>
+              )
+              : (
+                <Link to={ `drinks/${recipe.id}` }>
+                  <h4 data-testid={ `${index}-horizontal-name` }>
+                    { recipe.name }
+                  </h4>
+                </Link>
+              )
+          }
           <span>Done in: </span>
           <span data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate }</span>
           <button
