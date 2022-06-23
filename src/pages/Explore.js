@@ -1,13 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
-import profileIcon from '../images/profileIcon.svg';
 import Footer from '../components/Footer';
 
 function Explore() {
   return (
     <div>
-      <Header title="Explore" profileIcon={ profileIcon } />
+      <Header
+        title="Explore"
+        shouldHaveSearchButton={ false }
+      />
 
       <Link to="/explore/foods">
         <button

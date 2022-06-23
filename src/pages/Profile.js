@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
-import profileIcon from '../images/profileIcon.svg';
 import Footer from '../components/Footer';
 
 function Profile() {
   const history = useHistory();
-  const [info, setInfo] = useState('');
+  const [user, setUser] = useState({});
 
   const getToken = () => {
-    const userInfo = JSON.parse(localStorage.getItem('user'));
-    setInfo(userInfo);
+    const getUser = JSON.parse(localStorage.getItem('user'));
+    if (getUser !== null) {
+      setUser(getUser);
+    }
   };
 
   useEffect(() => {
     getToken();
-  }, [setInfo]);
+  }, []);
 
   const handleClick = () => {
     localStorage.clear();
@@ -24,10 +25,13 @@ function Profile() {
 
   return (
     <div>
-      <Header title="Profile" profileIcon={ profileIcon } />
+      <Header
+        title="Profile"
+        shouldHaveSearchButton={ false }
+      />
       <div>
-        <p data-testid="profile-email">{info.email}</p>
-        <Link exact to="/done-recipes">
+        <p data-testid="profile-email">{user.email}</p>
+        <Link to="/done-recipes">
           <button type="submit" data-testid="profile-done-btn">Done Recipes</button>
         </Link>
         <Link to="/favorite-recipes">
@@ -38,7 +42,7 @@ function Profile() {
             Favorite Recipes
           </button>
         </Link>
-        <Link exact to="/">
+        <Link to="/">
           <button
             type="submit"
             data-testid="profile-logout-btn"

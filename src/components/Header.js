@@ -5,7 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-function Header({ title }) {
+function Header({ title, shouldHaveSearchButton }) {
   const history = useHistory();
   const [searchBar, setSearchBar] = useState(false);
 
@@ -19,18 +19,17 @@ function Header({ title }) {
       >
         <img src={ profileIcon } alt="profileIcon" />
       </button>
-
       <h1 data-testid="page-title">{title}</h1>
-
-      <button
-        data-testid="search-top-btn"
-        type="button"
-        onClick={ () => setSearchBar(!searchBar) }
-        src={ searchIcon }
-      >
-        <img src={ searchIcon } alt="searchIcon" />
-      </button>
-
+      {shouldHaveSearchButton && (
+        <button
+          data-testid="search-top-btn"
+          type="button"
+          onClick={ () => setSearchBar(!searchBar) }
+          src={ searchIcon }
+        >
+          <img src={ searchIcon } alt="searchIcon" />
+        </button>
+      )}
       {
         searchBar && (
           <SearchBar />
