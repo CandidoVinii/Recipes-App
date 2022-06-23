@@ -5,7 +5,6 @@ function IgredientFilterButtons({ setType }) {
   return (
     <form>
       <label htmlFor="ingredient">
-        Ingrediente
         <input
           type="radio"
           name="search-radio"
@@ -13,9 +12,9 @@ function IgredientFilterButtons({ setType }) {
           data-testid="ingredient-search-radio"
           onClick={ ({ target }) => setType(target.id) }
         />
+        Ingrediente
       </label>
       <label htmlFor="name">
-        Nome
         <input
           type="radio"
           name="search-radio"
@@ -23,9 +22,9 @@ function IgredientFilterButtons({ setType }) {
           data-testid="name-search-radio"
           onClick={ ({ target }) => setType(target.id) }
         />
+        Nome
       </label>
       <label htmlFor="first-letter">
-        Primeira letra
         <input
           type="radio"
           name="search-radio"
@@ -33,6 +32,7 @@ function IgredientFilterButtons({ setType }) {
           data-testid="first-letter-search-radio"
           onClick={ ({ target }) => setType(target.id) }
         />
+        Primeira letra
       </label>
     </form>
   );

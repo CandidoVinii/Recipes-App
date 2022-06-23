@@ -1,118 +1,106 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
-import {
-  drinkForFirstLetter,
-  drinkForName,
-  searchCocktailForIngre,
-  searchForIngredient,
-  searchForName,
-  serachForFirstLetter }
-from '../services/api';
+import { useLocation } from 'react-router-dom';
 import IgredientFilterButtons from './IngredientFilterButtons';
 
 function SearchBar() {
-  const history = useHistory();
-  const { location } = history;
+  const firstL = 'first-letter';
+  const ingredient = 'ingredient';
+  const name = 'name';
+  const alertNoRecipes = 'Sorry, we haven\'t found any recipes for these filters.';
 
-  const magic = 12;
-  const [valueInput, setValueInput] = useState('');
+  const location = useLocation();
+  const { pathname } = location;
+
+  /* esses dois estados (drinks, foods) são chamados dependendo da pesquisa
+  como o zambelli comentou é melhor usarmos estados separados, caso for preciso
+  eu consigo unificar o estado em um objeto de array com as chaves meals e drinks
+  */
+  const [foods, setFoods] = useState([]);
+  const [drinks, setDrinks] = useState([]);
+
   const [typeSearch, setType] = useState('');
-  const [food, setFood] = useState([]);
-  const [drink, setDrink] = useState([]);
+  const [valueinput, setValueInput] = useState('');
 
-  const handleClickMeals = async () => {
-    if (typeSearch === 'ingredient') {
-      const result = await searchForIngredient(valueInput);
-      setFood(await result);
-    } if (typeSearch === 'name') {
-      const result = await searchForName(valueInput);
-      setFood(result);
-    } if (typeSearch === 'first-letter') {
-      const result = await serachForFirstLetter(typeSearch, valueInput);
-      setFood(result);
+  const handleChange = ({ target }) => {
+    setValueInput(target.value);
+  };
+
+  // função que busca apartir da api de comida
+  const foodSearch = async () => {
+    if (typeSearch === ingredient) {
+      const ingredientSearch = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${valueinput}`);
+      const result = await ingredientSearch.json();
+      setFoods(result.meals);
+    }
+    if (typeSearch === name) {
+      const nameSearch = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${valueinput}`);
+      const result = await nameSearch.json();
+      setFoods(result.meals);
+    }
+    if (typeSearch === firstL) {
+      const firstLetterSearch = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${valueinput}`);
+      const result = await firstLetterSearch.json();
+      setFoods(result);
+    }
+    if (foods.length === 0) {
+      global.alert(alertNoRecipes);
     }
   };
 
-  const handleClickCocktails = async () => {
-    if (typeSearch === 'ingredient') {
-      const result = await searchCocktailForIngre(valueInput);
-      setDrink(await result);
-    } else if (typeSearch === 'name') {
-      const result = await drinkForName(valueInput);
-      setDrink(result);
-    } if (typeSearch === 'first-letter') {
-      const result = await drinkForFirstLetter(typeSearch, valueInput);
-      setFood(result);
+  // função que busca apartir da api de drink
+  const drinkSearch = async () => {
+    if (typeSearch === ingredient) {
+      const ingredientEndPoint = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
+      const ingredientSearch = await fetch(`${ingredientEndPoint}${valueinput}`);
+      const data = await ingredientSearch.json();
+      setDrinks(data.drinks);
+    }
+    if (typeSearch === name) {
+      const nameEndPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+      const nameSearch = await fetch(`${nameEndPoint}${valueinput}`);
+      const data = await nameSearch.json();
+      setDrinks(data.drinks);
+    }
+    if (typeSearch === firstL) {
+      const firstLetterEndPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
+      const firstLetterSearch = await fetch(`${firstLetterEndPoint}${valueinput}`);
+      const data = await firstLetterSearch.json();
+      setDrinks(data);
+    }
+    if (drinks.length === 0) {
+      global.alert(alertNoRecipes);
+    }
+  };
+
+  const handleClick = () => {
+    if (valueinput.length > 1 && typeSearch === firstL) {
+      global.alert('Your search must have only 1 (one) character');
+    } else if (pathname === '/foods') {
+      foodSearch();
+    } else {
+      drinkSearch();
     }
   };
 
   return (
-    <>
-      <input
-        type="text"
-        data-testid="search-input"
-        onChange={ ({ target }) => setValueInput(target.value) }
-      />
+    <div>
+      <div>
+        <input
+          type="text"
+          data-testid="search-input"
+          onChange={ handleChange }
+        />
+        <button
+          type="button"
+          data-testid="exec-search-btn"
+          onClick={ handleClick }
+        >
+          Search
+        </button>
+      </div>
       <IgredientFilterButtons setType={ setType } />
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        onClick={
-          location.pathname === '/foods' ? handleClickMeals : handleClickCocktails
-        }
-      >
-        Search
-      </button>
-      {
-        location.pathname === '/foods' ? (
-          food.length > 0 && food.slice(0, magic).map((item, index) => (
-            <div
-              key={ item.idMeal }
-              data-testid={ `${index}-recipe-card` }
-            >
-              <img
-                style={ { width: '150px', height: '150px' } }
-                src={ item.strMealThumb }
-                alt={ item.strMeal }
-                data-testid={ `${index}-card-img` }
-              />
-              <h3
-                data-testid={ `${index}-card-name` }
-              >
-                {item.strMeal}
-              </h3>
-              <p>{item.strGlass}</p>
-            </div>
-          ))
-        ) : (
-          drink.length > 0 && drink.slice(0, magic).map((item, index) => (
-            <div
-              key={ item.idDrink }
-              data-testid={ `${index}-recipe-card` }
-            >
-              <img
-                style={ { width: '150px', height: '150px' } }
-                src={ item.strDrinkThumb }
-                alt={ item.strDrink }
-                data-testid={ `${index}-card-img` }
-              />
-              <h3
-                data-testid={ `${index}-card-name` }
-              >
-                {item.strDrink}
-              </h3>
-              <p>{item.strGlass}</p>
-            </div>
-          ))
-        )
-      }
-    </>
+    </div>
   );
 }
-
-SearchBar.propTypes = {
-  history: PropTypes.shape(),
-}.isRequired;
 
 export default SearchBar;
