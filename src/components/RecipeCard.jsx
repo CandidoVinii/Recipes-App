@@ -5,10 +5,13 @@ import { Link } from 'react-router-dom';
 function RecipeCard({ props }) {
   const { index, pathname, recipe, recipeType } = props;
   return (
-    <div data-testid={ `${index}-recipe-card` } key={ `recipe-${index}` }>
+    <div key={ `recipe-${index}` }>
       {recipeType === 'Meal'
         ? (
-          <Link to={ `${pathname}/${recipe.idMeal}` }>
+          <Link
+            data-testid={ `${index}-recipe-card` }
+            to={ `${pathname}/${recipe.idMeal}` }
+          >
             <img
               data-testid={ `${index}-card-img` }
               src={ recipe.strMealThumb }
@@ -21,7 +24,10 @@ function RecipeCard({ props }) {
           </Link>
         )
         : (
-          <Link to={ `${pathname}/${recipe.idDrink}` }>
+          <Link
+            data-testid={ `${index}-recipe-card` }
+            to={ `${pathname}/${recipe.idDrink}` }
+          >
             <img
               data-testid={ `${index}-card-img` }
               src={ recipe.strDrinkThumb }
