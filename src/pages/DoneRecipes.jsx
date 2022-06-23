@@ -9,14 +9,15 @@ const mock = [{
   type: 'food',
   nationality: 'peruana',
   category: 'sobremesa',
-  alcoholicOrNot: [],
+  alcoholicOrNot: '',
   name: 'Torta de Mirtillo',
   image: profileIcon,
   doneDate: '23/05/2021',
-  tags: ['gelada', 'doce'],
+  tags: ['Pasta', 'Curry'],
 }];
 
 function DoneRecipes() {
+  // SETUP DO MOCK - remover linha abaixo após finalização da página de progresso.
   localStorage.setItem('doneRecipes', JSON.stringify(mock));
 
   const completeRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
