@@ -10,9 +10,21 @@ function RecipeFilterButtons({ history }) {
 
   const [categoriesList, setCategoriesList] = useState([]);
   const {
+    isFilteredByCategory,
+    setIsFilteredByCategory,
     selectedCategory,
     setSelectedCategory,
   } = useContext(Context);
+
+  const selectCategoryToggle = (category) => {
+    if (isFilteredByCategory && selectedCategory === category) {
+      setSelectedCategory('All');
+      setIsFilteredByCategory(false);
+    } else {
+      setSelectedCategory(category);
+      setIsFilteredByCategory(true);
+    }
+  };
 
   useEffect(() => {
     async function fetchCategories() {
@@ -45,7 +57,9 @@ function RecipeFilterButtons({ history }) {
             <button
               data-testid={ `${category.strCategory}-category-filter` }
               key={ category.strCategory }
-              onClick={ () => setSelectedCategory(category.strCategory) }
+              // onClick={ () => setSelectedCategory(category.strCategory) }
+              onClick={ () => selectCategoryToggle(category.strCategory) }
+              value={ isFilteredByCategory }
               type="button"
             >
               {category.strCategory}
