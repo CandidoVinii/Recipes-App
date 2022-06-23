@@ -36,23 +36,11 @@ function Card({ recipes }) {
           <span data-testid={ `${index}-horizontal-top-text` }>
             { recipe.category }
           </span>
-          {
-            recipe.type === 'food'
-              ? (
-                <Link to={ `foods/${recipe.id}` }>
-                  <h4 data-testid={ `${index}-horizontal-name` }>
-                    { recipe.name }
-                  </h4>
-                </Link>
-              )
-              : (
-                <Link to={ `drinks/${recipe.id}` }>
-                  <h4 data-testid={ `${index}-horizontal-name` }>
-                    { recipe.name }
-                  </h4>
-                </Link>
-              )
-          }
+          <Link to={ `${recipe.type}s/${recipe.id}` }>
+            <h4 data-testid={ `${index}-horizontal-name` }>
+              { recipe.name }
+            </h4>
+          </Link>
           <span>Done in: </span>
           <span data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate }</span>
           <button
