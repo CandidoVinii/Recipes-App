@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 
 function Profile() {
   const history = useHistory();
-  const [info, setInfo] = useState('');
+  const [info, setInfo] = useState({});
 
   const getToken = () => {
     const userInfo = JSON.parse(localStorage.getItem('user'));
@@ -13,8 +13,10 @@ function Profile() {
   };
 
   useEffect(() => {
-    getToken();
-  }, [setInfo]);
+    if (!info) {
+      getToken();
+    }
+  }, [info]);
 
   const handleClick = () => {
     localStorage.clear();
