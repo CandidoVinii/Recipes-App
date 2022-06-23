@@ -24,27 +24,13 @@ function Card({ recipes }) {
     <div>
       { recipes.map((recipe, index) => (
         <div key={ index }>
-          {
-            recipe.type === 'food'
-              ? (
-                <Link to={ `foods/${recipe.id}` }>
-                  <img
-                    src={ mealIcon }
-                    alt="mealImage"
-                    data-testid={ `${index}-horizontal-image` }
-                  />
-                </Link>
-              )
-              : (
-                <Link to={ `drinks/${recipe.id}` }>
-                  <img
-                    src={ mealIcon }
-                    alt="mealImage"
-                    data-testid={ `${index}-horizontal-image` }
-                  />
-                </Link>
-              )
-          }
+          <Link to={ `${recipe.type}s/${recipe.id}` }>
+            <img
+              src={ mealIcon }
+              alt="mealImage"
+              data-testid={ `${index}-horizontal-image` }
+            />
+          </Link>
           <span>{ recipe.nationality }</span>
           <span> - </span>
           <span data-testid={ `${index}-horizontal-top-text` }>
