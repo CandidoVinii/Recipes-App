@@ -1,70 +1,65 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import Header from '../components/Header';
+import { fetchFoodsByCategory, setMaxNumberOfRecipes } from '../services/api';
+import Context from '../context/Context';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
+import RecipeCard from '../components/RecipeCard';
 import RecipeFilterButtons from '../components/RecipeFilterButtons';
 
-const foodsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const drinksUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+const foodsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+const foodsByCategoryUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+const drinksByCategoryUrl = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
 
 function Foods({ history }) {
   const { location: { pathname } } = history;
 
-  const url = pathname === '/foods' ? foodsUrl : drinksUrl;
-  const recipeTypes = pathname === '/foods' ? 'meals' : 'drinks';
+  const defaultUrl = pathname === '/foods' ? foodsUrl : drinksUrl;
+  const key = pathname === '/foods' ? 'meals' : 'drinks';
   const recipeType = pathname === '/foods' ? 'Meal' : 'Drink';
 
-  const [recipes, setRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [recipesFromAPI, setRecipesFromAPI] = useState([]);
+  const [urlToFetch, setUrlToFetch] = useState(defaultUrl);
+  const { selectedCategory } = useContext(Context);
 
   useEffect(() => {
-    async function fetchFoods() {
-      const MAX_MEALS_PER_PAGE = 12;
-      const response = await fetch(url);
-      const data = await response.json();
-      const newRecipes = data[recipeTypes].splice(0, MAX_MEALS_PER_PAGE);
-      setRecipes(newRecipes);
+    switch (selectedCategory) {
+    case 'All':
+      return pathname === '/foods' ? setUrlToFetch(foodsUrl) : setUrlToFetch(drinksUrl);
+    default:
+      return pathname === '/foods'
+        ? setUrlToFetch(`${foodsByCategoryUrl}${selectedCategory}`)
+        : setUrlToFetch(`${drinksByCategoryUrl}${selectedCategory}`);
     }
-    fetchFoods();
-  }, [url, recipeTypes]);
+  }, [pathname, selectedCategory]);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      const recipes = await fetchFoodsByCategory(urlToFetch);
+      setRecipesFromAPI(recipes[key]);
+    };
+    fetchRecipes();
+  }, [key, urlToFetch]);
+
+  useEffect(() => {
+    if (recipesFromAPI.length > 0) {
+      setMaxNumberOfRecipes(recipesFromAPI, setFilteredRecipes);
+    }
+  }, [key, recipeType, recipesFromAPI]);
 
   return (
     <>
       <Header title={ pathname === '/foods' ? 'Foods' : 'Drinks' } />
       <RecipeFilterButtons history={ history } />
       <div>
-        {
-          recipes.map((recipe, index) => (
-            <div data-testid={ `${index}-recipe-card` } key={ `recipe-${index}` }>
-              {recipeType === 'Meal'
-                ? (
-                  <Link to={ `${pathname}/${recipe.idMeal}` }>
-                    <img
-                      data-testid={ `${index}-card-img` }
-                      src={ recipe.strMealThumb }
-                      alt={ recipe.strIdMeal }
-                      width="100px"
-                    />
-                    <p data-testid={ `${index}-card-name` }>
-                      { recipe.strMeal }
-                    </p>
-                  </Link>)
-                : (
-                  <Link to={ `${pathname}/${recipe.idDrink}` }>
-                    <img
-                      data-testid={ `${index}-card-img` }
-                      src={ recipe.strDrinkThumb }
-                      alt={ recipe.strIdDrink }
-                      width="100px"
-                    />
-                    <p data-testid={ `${index}-card-name` }>
-                      { recipe.strDrink }
-                    </p>
-                  </Link>
-                )}
-            </div>
-          ))
-        }
+        {filteredRecipes.map((recipe, index) => (
+          <RecipeCard
+            key={ `recipe-${index}` }
+            props={ { index, pathname, recipe, recipeType } }
+          />
+        ))}
       </div>
       <Footer />
     </>
