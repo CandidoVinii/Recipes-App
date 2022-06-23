@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import mealIcon from '../images/mealIcon.svg';
 import Context from '../context/Context';
+import shareIcon from '../images/shareIcon.svg';
 
 function Card({ recipes }) {
   const { doneFilter } = useContext(Context);
@@ -27,9 +28,15 @@ function Card({ recipes }) {
           </h4>
           <span>Done in: </span>
           <span data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate }</span>
+          <button
+            data-testid={ `${index}-horizontal-share-btn` }
+            type="button"
+          >
+            <img src={ shareIcon } alt="compartilhar" />
+          </button>
           { recipe.tags.map((tag, indice) => (
             <div key={ indice }>
-              <span data-testid={ `${index}-${tag}-horizontal-tag` }>
+              <span data-testid={ `${indice}-${recipe.tags[indice]}-horizontal-tag` }>
                 {tag}
               </span>
             </div>
