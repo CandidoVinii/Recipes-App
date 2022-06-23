@@ -9,6 +9,7 @@ import {
   searchForName,
   serachForFirstLetter }
 from '../services/api';
+import IgredientFilterButtons from './IngredientFilterButtons';
 
 function SearchBar() {
   const history = useHistory();
@@ -53,47 +54,16 @@ function SearchBar() {
         data-testid="search-input"
         onChange={ ({ target }) => setValueInput(target.value) }
       />
-      <form>
-        <label htmlFor="ingredient">
-          Ingrediente
-          <input
-            type="radio"
-            name="search-radio"
-            id="ingredient"
-            data-testid="ingredient-search-radio"
-            onClick={ ({ target }) => setType(target.id) }
-          />
-        </label>
-        <label htmlFor="name">
-          Nome
-          <input
-            type="radio"
-            name="search-radio"
-            id="name"
-            data-testid="name-search-radio"
-            onClick={ ({ target }) => setType(target.id) }
-          />
-        </label>
-        <label htmlFor="first-letter">
-          Primeira letra
-          <input
-            type="radio"
-            name="search-radio"
-            id="first-letter"
-            data-testid="first-letter-search-radio"
-            onClick={ ({ target }) => setType(target.id) }
-          />
-        </label>
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-          onClick={
-            location.pathname === '/foods' ? handleClickMeals : handleClickCocktails
-          }
-        >
-          Search
-        </button>
-      </form>
+      <IgredientFilterButtons setType={ setType } />
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        onClick={
+          location.pathname === '/foods' ? handleClickMeals : handleClickCocktails
+        }
+      >
+        Search
+      </button>
       {
         location.pathname === '/foods' ? (
           food.length > 0 && food.slice(0, magic).map((item, index) => (
