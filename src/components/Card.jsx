@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { ToastContainer, toast } from 'react-toastify';
 import mealIcon from '../images/mealIcon.svg';
 import Context from '../context/Context';
 import shareIcon from '../images/shareIcon.svg';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Card({ recipes }) {
   const { doneFilter } = useContext(Context);
@@ -15,6 +17,7 @@ function Card({ recipes }) {
     /* Utiliza-se currentTarget aqui porque o botao possui uma imagem interna, assim, quando ele e clicado, as vezes o 'target' e a imagem, outras e o botao. Porem, precisamos sempre acessar o botao porque a informacao da URL e salva nele. Daí usamos o currentTarget porque indica qual o elemento que de fato tem o tratador associado, logo usar ele permite sempre acessar o botao */
     const recipeURL = `${window.location.origin}${currentTarget.value}`;
     navigator.clipboard.writeText(recipeURL);
+    toast('Link copied!');
   }
 
   return (
@@ -83,6 +86,7 @@ function Card({ recipes }) {
           )) }
         </div>
       )) }
+      <ToastContainer />
     </div>
   );
 }
