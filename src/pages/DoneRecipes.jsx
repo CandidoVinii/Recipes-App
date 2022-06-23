@@ -23,7 +23,10 @@ function DoneRecipes() {
 
   return (
     <>
-      <Header title="Done Recipes" profileIcon={ profileIcon } />
+      <Header
+        title="Done Recipes"
+        shouldHaveSearchButton={ false }
+      />
       <DoneFilters />
       <Card recipes={ completeRecipes } />
     </>
