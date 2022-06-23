@@ -19,10 +19,13 @@ export const searchForName = async (valueInput) => {
   return result.meals;
 };
 
-export const serachForFirstLetter = async (valueInput) => {
+export const serachForFirstLetter = async (typeSearch, valueInput) => {
   const fetchForLetter = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${valueInput}`);
-  const result = await fetchForLetter.json();
-  return result.meals;
+  const result = fetchForLetter;
+  if (valueInput > 1 && typeSearch === 'first-letter') {
+    global.alert('Your search must have only 1 (one) character');
+  }
+  await result.meals;
 };
 
 export const searchCocktailForIngre = async (valueInput) => {
@@ -37,10 +40,14 @@ export const drinkForName = async (valueInput) => {
   return result.drinks;
 };
 
-export const drinkForFirstLetter = async (valueInput) => {
+export const drinkForFirstLetter = async (typeSearch, valueInput) => {
   const fetchForLetter = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${valueInput}`);
   const result = await fetchForLetter.json();
-  return result.drinks;
+  if (valueInput.length > 1 && typeSearch === 'first-letter') {
+    global.alert('Your search must have only 1 (one) character');
+  } else {
+    return result.drinks;
+  }
 };
 
 export default saveTokenInStorage;

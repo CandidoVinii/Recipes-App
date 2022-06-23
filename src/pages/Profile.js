@@ -27,7 +27,7 @@ function Profile() {
       <Header title="Profile" profileIcon={ profileIcon } />
       <div>
         <p data-testid="profile-email">{info.email}</p>
-        <Link to="/done-recipes">
+        <Link exact to="/done-recipes">
           <button type="submit" data-testid="profile-done-btn">Done Recipes</button>
         </Link>
         <Link to="/favorite-recipes">

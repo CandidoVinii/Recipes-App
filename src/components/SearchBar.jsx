@@ -20,27 +20,17 @@ function SearchBar() {
   const [food, setFood] = useState([]);
   const [drink, setDrink] = useState([]);
 
-  const firstletter = async () => {
-    if (valueInput.length > 1 && typeSearch === 'first-letter') {
-      global.alert('Your search must have only 1 (one) character');
-    } else if (location.pathname === '/foods') {
-      const result = await serachForFirstLetter(valueInput);
-      setFood(result);
-    } else {
-      const result = await drinkForFirstLetter(valueInput);
-      setDrink(result);
-    }
-  };
-
   const handleClickMeals = async () => {
     if (typeSearch === 'ingredient') {
       const result = await searchForIngredient(valueInput);
-      setFood(result);
-    } else if (typeSearch === 'name') {
-      const result = await searchForName(valueInput);
       setFood(await result);
+    } if (typeSearch === 'name') {
+      const result = await searchForName(valueInput);
+      setFood(result);
+    } if (typeSearch === 'first-letter') {
+      const result = await serachForFirstLetter(typeSearch, valueInput);
+      setFood(result);
     }
-    firstletter();
   };
 
   const handleClickCocktails = async () => {
@@ -50,8 +40,10 @@ function SearchBar() {
     } else if (typeSearch === 'name') {
       const result = await drinkForName(valueInput);
       setDrink(result);
+    } if (typeSearch === 'first-letter') {
+      const result = await drinkForFirstLetter(typeSearch, valueInput);
+      setFood(result);
     }
-    firstletter();
   };
 
   return (
@@ -120,7 +112,7 @@ function SearchBar() {
               >
                 {item.strMeal}
               </h3>
-              <p>{item.strArea}</p>
+              <p>{item.strGlass}</p>
             </div>
           ))
         ) : (
