@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
-import profileIcon from '../images/profileIcon.svg';
 import Footer from '../components/Footer';
 
 function Profile() {
@@ -24,7 +23,10 @@ function Profile() {
 
   return (
     <div>
-      <Header title="Profile" profileIcon={ profileIcon } />
+      <Header
+        title="Profile"
+        shouldHaveSearchButton={ false }
+      />
       <div>
         <p data-testid="profile-email">{info.email}</p>
         <Link to="/done-recipes">
@@ -38,7 +40,7 @@ function Profile() {
             Favorite Recipes
           </button>
         </Link>
-        <Link exact to="/">
+        <Link to="/">
           <button
             type="submit"
             data-testid="profile-logout-btn"

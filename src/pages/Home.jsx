@@ -51,7 +51,10 @@ function Foods({ history }) {
 
   return (
     <>
-      <Header title={ pathname === '/foods' ? 'Foods' : 'Drinks' } />
+      <Header
+        title={ pathname === '/foods' ? 'Foods' : 'Drinks' }
+        shouldHaveSearchButton
+      />
       <RecipeFilterButtons history={ history } />
       <div>
         {filteredRecipes.map((recipe, index) => (

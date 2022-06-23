@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
-import profileIcon from '../images/profileIcon.svg';
 import Footer from '../components/Footer';
 
 function ExploreFoods() {
@@ -17,7 +16,10 @@ function ExploreFoods() {
 
   return (
     <>
-      <Header title="Explore Foods" profileIcon={ profileIcon } />
+      <Header
+        title="Explore Foods"
+        shouldHaveSearchButton={ false }
+      />
 
       <Footer />
 
