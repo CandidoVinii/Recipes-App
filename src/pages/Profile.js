@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
-import profileIcon from '../images/profileIcon.svg';
 import Footer from '../components/Footer';
 
 function Profile() {
   const history = useHistory();
-  const [info, setInfo] = useState('');
+  const [info, setInfo] = useState({});
 
   const getToken = () => {
     const userInfo = JSON.parse(localStorage.getItem('user'));
@@ -14,8 +13,10 @@ function Profile() {
   };
 
   useEffect(() => {
-    getToken();
-  }, [setInfo]);
+    if (!info) {
+      getToken();
+    }
+  }, [info]);
 
   const handleClick = () => {
     localStorage.clear();
@@ -24,7 +25,10 @@ function Profile() {
 
   return (
     <div>
-      <Header title="Profile" profileIcon={ profileIcon } />
+      <Header
+        title="Profile"
+        shouldHaveSearchButton={ false }
+      />
       <div>
         <p data-testid="profile-email">{info.email}</p>
         <Link to="/done-recipes">
@@ -38,7 +42,7 @@ function Profile() {
             Favorite Recipes
           </button>
         </Link>
-        <Link exact to="/">
+        <Link to="/">
           <button
             type="submit"
             data-testid="profile-logout-btn"
