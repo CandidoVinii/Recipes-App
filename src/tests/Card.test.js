@@ -5,6 +5,8 @@ import renderWithContext from './helpers/renderWithContext';
 import App from '../App';
 import mockDoneRecipes from './Mocks/mockDoneRecipes';
 
+const targetPathname = '/done-recipes';
+
 beforeEach(() => {
   localStorage.setItem('doneRecipes', JSON.stringify(mockDoneRecipes));
 });
