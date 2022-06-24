@@ -10,6 +10,7 @@ export default function Progress() {
   const { recipe: recipeID } = useParams();
   const location = useLocation();
 
+  const [ingredientSteps, setIngredientSteps] = useState([]);
   const [recipe, setRecipe] = useState([]);
   const [url, setUrl] = useState('');
 
@@ -27,12 +28,30 @@ export default function Progress() {
       const result = await response.json();
       setRecipe(Object.values(result)[0]);
     };
-    if (url) {
+    const assembleRecipeIngredients = () => {
+      const ingredients = Object.entries(recipe[0])
+        .filter((prop) => prop[0].includes('strIngredient'))
+        .filter((prop) => prop[1])
+        .map((prop) => prop[1]);
+
+      const measures = Object.entries(recipe[0])
+        .filter((prop) => prop[0].includes('strMeasure'))
+        .filter((prop) => prop[1] && prop[1] !== ' ')
+        .map((prop) => prop[1]);
+
+      const steps = ingredients
+        .map((ingredient, index) => `${ingredient} - ${measures[index]}`);
+      setIngredientSteps(steps);
+    };
+    if (url && !recipe.length) {
       fetchRecipeDetails();
     }
-  }, [recipeID, url]);
+    if (recipe.length) {
+      assembleRecipeIngredients();
+    }
+  }, [recipe, recipeID, url]);
 
   return (
-    <RecipeInProgressCard recipeArr={ recipe } />
+    <RecipeInProgressCard recipeArr={ recipe } ingredientSteps={ ingredientSteps } />
   );
 }
