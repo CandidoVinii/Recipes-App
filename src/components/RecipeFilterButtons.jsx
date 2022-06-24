@@ -47,7 +47,10 @@ function RecipeFilterButtons({ history }) {
       <div className="data-category-buttons">
         <button
           data-testid="All-category-filter"
-          onClick={ () => setSelectedCategory('All') }
+          onClick={ () => {
+            setSelectedCategory('All');
+            setIsFilteredByCategory(false);
+          } }
           type="button"
         >
           All
@@ -57,7 +60,6 @@ function RecipeFilterButtons({ history }) {
             <button
               data-testid={ `${category.strCategory}-category-filter` }
               key={ category.strCategory }
-              // onClick={ () => setSelectedCategory(category.strCategory) }
               onClick={ () => selectCategoryToggle(category.strCategory) }
               value={ isFilteredByCategory }
               type="button"
