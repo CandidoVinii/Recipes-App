@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
-import mealIcon from '../images/mealIcon.svg';
 import Context from '../context/Context';
 import shareIcon from '../images/shareIcon.svg';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,30 +25,31 @@ function Card({ recipes }) {
         <div key={ index }>
           <Link to={ `${recipe.type}s/${recipe.id}` }>
             <img
-              src={ mealIcon }
-              alt="mealImage"
+              src={ recipe.image }
+              alt={ `${recipe.name}` }
               data-testid={ `${index}-horizontal-image` }
             />
           </Link>
           <span>{ recipe.nationality }</span>
-          <span> - </span>
           <span data-testid={ `${index}-horizontal-top-text` }>
-            { recipe.category }
+            { (recipe.type === 'food')
+              ? (` - ${recipe.category}`) : (` - ${recipe.alcoholicOrNot}`) }
           </span>
           <Link to={ `${recipe.type}s/${recipe.id}` }>
             <h4 data-testid={ `${index}-horizontal-name` }>
               { recipe.name }
             </h4>
           </Link>
-          <span>Done in: </span>
-          <span data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate }</span>
+          <span data-testid={ `${index}-horizontal-done-date` }>
+            { `Done in : ${recipe.doneDate}` }
+          </span>
           <button
             data-testid={ `${index}-horizontal-share-btn` }
             type="button"
             value={ `/${recipe.type}s/${recipe.id}` }
             onClick={ shareClick }
           >
-            <img src={ shareIcon } alt="compartilhar" />
+            <img src={ shareIcon } alt={ `Compartilhar receita de ${recipe.name}` } />
           </button>
           { recipe.tags.map((tag, indice) => (
             <div key={ indice }>

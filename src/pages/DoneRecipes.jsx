@@ -3,23 +3,12 @@ import Card from '../components/Card';
 import Header from '../components/Header';
 import profileIcon from '../images/profileIcon.svg';
 import DoneFilters from '../components/DoneFilters';
-
 // SETUP DO MOCK - remover mock abaixo após finalização da página de progresso.
-const mock = [{
-  id: 16541654,
-  type: 'food',
-  nationality: 'peruana',
-  category: 'sobremesa',
-  alcoholicOrNot: '',
-  name: 'Torta de Mirtillo',
-  image: profileIcon,
-  doneDate: '23/05/2021',
-  tags: ['Pasta', 'Curry'],
-}];
+import mockDoneRecipes from '../tests/Mocks/mockDoneRecipes';
 
 function DoneRecipes() {
   // SETUP DO MOCK - remover linha abaixo após finalização da página de progresso.
-  localStorage.setItem('doneRecipes', JSON.stringify(mock));
+  localStorage.setItem('doneRecipes', JSON.stringify(mockDoneRecipes));
 
   const completeRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
