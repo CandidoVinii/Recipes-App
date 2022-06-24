@@ -22,6 +22,7 @@ function Home({ history }) {
     filteredRecipes,
     setRecipesFromAPI,
     selectedCategory,
+    setSelectedCategory,
   } = useContext(Context);
   const [urlToFetch, setUrlToFetch] = useState(defaultUrl);
 
@@ -42,7 +43,11 @@ function Home({ history }) {
       setRecipesFromAPI(Object.values(recipes)[0]);
     };
     fetchRecipes();
-  }, [defaultUrl, urlToFetch, setRecipesFromAPI]);
+  }, [urlToFetch]);
+
+  useEffect(() => {
+    setSelectedCategory('All');
+  }, [pathname]);
 
   return (
     <>
