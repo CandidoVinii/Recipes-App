@@ -1,0 +1,47 @@
+.data-recipe-info-parent {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.data-recipe-title {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+}
+
+.data-buttons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+.data-recipe-thumb {
+  background-size: cover;
+  /* height: 25vh; */
+  /* width: 100%; */
+}
+
+.data-finish-recipe-btn-parent {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.data-finish-recipe-btn {
+  background-color: greenyellow;
+  border: 0;
+  border-radius: 100px;
+  color: white;
+  text-shadow: black 1px 0 2px;
+  font-size: 2em;
+  font-weight: 600;
+  font-variant: small-caps;
+  height: 10vh;
+  width: 75vw;
+}
+
+.btn-fav-share {
+  background: none;
+  border: 0;
+}
