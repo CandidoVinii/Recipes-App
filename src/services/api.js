@@ -7,6 +7,7 @@ export const saveTokenInStorage = (email) => {
   localStorage.setItem('user', user);
 };
 
+export default saveTokenInStorage;
 export const fetchFoodsByCategory = async (url) => {
   const response = await fetch(url);
   const data = await response.json();
@@ -17,7 +18,7 @@ export const setMaxNumberOfRecipes = (allRecipes, setFilteredRecipes) => {
   const MAX_MEALS_PER_PAGE = 12;
   let recipes = Array.from(allRecipes);
   if (recipes.length > MAX_MEALS_PER_PAGE) {
-    recipes = recipes.splice(0, MAX_MEALS_PER_PAGE);
+    recipes = recipes.slice(0, MAX_MEALS_PER_PAGE);
     setFilteredRecipes(recipes);
   } else {
     setFilteredRecipes(recipes);
