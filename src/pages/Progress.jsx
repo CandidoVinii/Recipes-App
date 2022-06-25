@@ -6,10 +6,16 @@ import '../styles/Progress.css';
 const foodsUrl = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const drinksUrl = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
+// const inProgressRecipes = {
+//   cocktails: {},
+//   meals: {},
+// };
+
 export default function Progress() {
   const { recipe: recipeID } = useParams();
   const location = useLocation();
 
+  const [usedIngredients, setUsedIngredients] = useState({});
   const [ingredientSteps, setIngredientSteps] = useState([]);
   const [recipe, setRecipe] = useState([]);
   const [url, setUrl] = useState('');
@@ -51,7 +57,26 @@ export default function Progress() {
     }
   }, [recipe, recipeID, url]);
 
+  useEffect(() => {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(usedIngredients));
+  }, [usedIngredients]);
+
+  useEffect(() => {
+    const item = localStorage.getItem('inProgressRecipes');
+    if (item) {
+      setUsedIngredients(item);
+    }
+  }, []);
+
+  // const handleIngredient = () => {
+
+  // };
+
   return (
-    <RecipeInProgressCard recipeArr={ recipe } ingredientSteps={ ingredientSteps } />
+    <RecipeInProgressCard
+      recipeArr={ recipe }
+      ingredientSteps={ ingredientSteps }
+      // handleIngredient={ handleIngredient }
+    />
   );
 }
