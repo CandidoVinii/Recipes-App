@@ -6,18 +6,19 @@ import '../styles/Progress.css';
 const foodsUrl = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const drinksUrl = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
-// const inProgressRecipes = {
-//   cocktails: {},
-//   meals: {},
-// };
-
 export default function Progress() {
   const { recipe: recipeID } = useParams();
   const location = useLocation();
 
-  const [usedIngredients, setUsedIngredients] = useState({});
+  const [inProgressRecipes, setInProgressRecipes] = useState(() => {
+    const items = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (items) {
+      return items;
+    } return {};
+  });
   const [ingredientSteps, setIngredientSteps] = useState([]);
   const [recipe, setRecipe] = useState([]);
+  const [recipeType, setRecipeType] = useState('');
   const [url, setUrl] = useState('');
 
   useEffect(() => {
@@ -26,6 +27,9 @@ export default function Progress() {
     const type = `/${pathname[1]}`;
     const urlToFetch = type === '/foods' ? foodsUrl : drinksUrl;
     setUrl(urlToFetch);
+
+    const mealsOrCocktails = type === '/foods' ? 'meals' : 'cocktails';
+    setRecipeType(mealsOrCocktails);
   }, [location]);
 
   useEffect(() => {
@@ -58,25 +62,34 @@ export default function Progress() {
   }, [recipe, recipeID, url]);
 
   useEffect(() => {
-    localStorage.setItem('inProgressRecipes', JSON.stringify(usedIngredients));
-  }, [usedIngredients]);
+    console.log('effect - set');
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  }, [inProgressRecipes]);
 
-  useEffect(() => {
-    const item = localStorage.getItem('inProgressRecipes');
-    if (item) {
-      setUsedIngredients(item);
+  const handleIngredient = (ingredient) => {
+    let prevIngredients;
+    const items = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (items) {
+      prevIngredients = items[recipeType][recipeID];
+      console.log('prevIngredients:', prevIngredients);
+      const newInProgressRecipe = {
+        ...inProgressRecipes,
+        [recipeType]: {
+          ...inProgressRecipes[recipeType],
+          [recipeID]: [...prevIngredients, ingredient],
+        },
+      };
+      setInProgressRecipes(newInProgressRecipe);
     }
-  }, []);
-
-  // const handleIngredient = () => {
-
-  // };
+  };
 
   return (
     <RecipeInProgressCard
       recipeArr={ recipe }
       ingredientSteps={ ingredientSteps }
-      // handleIngredient={ handleIngredient }
+      handleIngredient={ handleIngredient }
+      inProgressRecipes={ inProgressRecipes }
+      recipeType={ recipeType }
     />
   );
 }
