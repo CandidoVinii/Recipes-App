@@ -43,6 +43,7 @@ function Nationalities() {
     <>
       <Header
         title="Explore Nationalities"
+        shouldHaveSearchButton
       />
       <select
         data-testid="explore-by-nationality-dropdown"
