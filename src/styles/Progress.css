@@ -45,3 +45,10 @@
   background: none;
   border: 0;
 }
+
+.data-ingredient-step {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: baseline;
+}
