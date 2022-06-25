@@ -46,7 +46,11 @@ function RecipeInProgressCard({ ingredientSteps, recipeArr }) {
                   key={ `${index}-ingredient-step` }
                   data-testid={ `${index}-ingredient-step` }
                 >
-                  <input type="checkbox" name="" id="" />
+                  <input
+                    type="checkbox"
+                    name={ index }
+                    id={ `${index}-ingredient-step` }
+                  />
                   <p>{step}</p>
                 </div>
               ))}
