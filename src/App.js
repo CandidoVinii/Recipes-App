@@ -15,6 +15,7 @@ import Profile from './pages/Profile';
 import Progress from './pages/Progress';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import PageNotFound from './pages/PageNotFound';
 
 function App() {
   return (
@@ -30,8 +31,9 @@ function App() {
         <Route path="/explore/foods/ingredients" component={ Ingredients } />
         <Route path="/explore/drinks/ingredients" component={ Ingredients } />
         <Route exact path="/explore/foods" component={ ExploreFoods } />
-        <Route path="/explore/drinks" component={ ExploreDrinks } />
+        <Route exact path="/explore/drinks" component={ ExploreDrinks } />
         <Route path="/explore/foods/nationalities" component={ Nationalities } />
+        <Route exact path="/explore/drinks/nationalities" component={ PageNotFound } />
         <Route exact path="/explore" component={ Explore } />
         <Route path="/profile" component={ Profile } />
         <Route path="/done-recipes" component={ DoneRecipes } />
