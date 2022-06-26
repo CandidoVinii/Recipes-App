@@ -20,6 +20,7 @@ export default function Progress() {
     };
   });
   const [ingredientSteps, setIngredientSteps] = useState([]);
+  const [isRecipeFinished, setIsRecipeFinished] = useState(true);
   const [recipe, setRecipe] = useState([]);
   const [recipeType, setRecipeType] = useState('');
   const [url, setUrl] = useState('');
@@ -68,8 +69,22 @@ export default function Progress() {
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   }, [inProgressRecipes]);
 
+  const checkIfRecipeIsFinished = (ingredients) => {
+    const bool = ingredients.length
+    === ingredientSteps.length;
+    setIsRecipeFinished(!bool);
+  };
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (items && recipeType) {
+      const ingredients = items[recipeType][recipeID];
+      checkIfRecipeIsFinished(ingredients);
+    }
+  }, [recipeID]);
+
   const handleIngredient = (ingredient) => {
-    let prevIngredients;
+    let prevIngredients = [];
     const items = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const isRecipeSaved = items[recipeType][recipeID];
     if (!isRecipeSaved) {
@@ -97,6 +112,7 @@ export default function Progress() {
       };
       setInProgressRecipes(newInProgressRecipe);
     }
+    checkIfRecipeIsFinished(prevIngredients);
   };
 
   return (
@@ -106,6 +122,7 @@ export default function Progress() {
       handleIngredient={ handleIngredient }
       inProgressRecipes={ inProgressRecipes }
       recipeType={ recipeType }
+      isRecipeFinished={ isRecipeFinished }
     />
   );
 }
