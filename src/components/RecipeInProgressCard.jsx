@@ -1,11 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import ShareIcon from '../images/shareIcon.svg';
 import FavoriteIcon from '../images/whiteHeartIcon.svg';
 
-function RecipeInProgressCard({ ingredientSteps, recipeArr }) {
+function RecipeInProgressCard({
+  ingredientSteps,
+  inProgressRecipes,
+  handleIngredient,
+  recipeArr,
+  recipeType }) {
   const history = useHistory();
+  const { recipe: recipeID } = useParams();
+
+  const manageIngredient = (ingIndex) => {
+    if (inProgressRecipes[recipeType][recipeID]) {
+      const checked = inProgressRecipes[recipeType][recipeID]
+        .some((ing) => ing === ingIndex);
+      return checked;
+    }
+  };
+
   return (
     <>
       {recipeArr.map((recipe) => (
@@ -50,6 +65,8 @@ function RecipeInProgressCard({ ingredientSteps, recipeArr }) {
                     type="checkbox"
                     name={ index }
                     id={ `${index}-ingredient-step` }
+                    onChange={ () => handleIngredient(index) }
+                    checked={ manageIngredient(index) }
                   />
                   <p>{step}</p>
                 </div>
