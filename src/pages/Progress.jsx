@@ -14,7 +14,10 @@ export default function Progress() {
     const items = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (items) {
       return items;
-    } return {};
+    } return {
+      cocktails: {},
+      meals: {},
+    };
   });
   const [ingredientSteps, setIngredientSteps] = useState([]);
   const [recipe, setRecipe] = useState([]);
@@ -69,14 +72,28 @@ export default function Progress() {
   const handleIngredient = (ingredient) => {
     let prevIngredients;
     const items = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (items) {
+    const isRecipeSaved = items[recipeType][recipeID];
+    if (!isRecipeSaved) {
+      const newInProgressRecipe = {
+        ...items,
+        [recipeType]: {
+          [recipeID]: [ingredient],
+        },
+      };
+      setInProgressRecipes(newInProgressRecipe);
+    } else {
       prevIngredients = items[recipeType][recipeID];
-      console.log('prevIngredients:', prevIngredients);
+      if (prevIngredients.includes(ingredient)) {
+        prevIngredients = prevIngredients
+          .filter((currIngredient) => currIngredient !== ingredient);
+      } else {
+        prevIngredients = [...prevIngredients, ingredient];
+      }
       const newInProgressRecipe = {
         ...inProgressRecipes,
         [recipeType]: {
           ...inProgressRecipes[recipeType],
-          [recipeID]: [...prevIngredients, ingredient],
+          [recipeID]: [...prevIngredients],
         },
       };
       setInProgressRecipes(newInProgressRecipe);
