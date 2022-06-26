@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, useParams } from 'react-router-dom';
 import ShareIcon from '../images/shareIcon.svg';
@@ -13,12 +13,24 @@ function RecipeInProgressCard({
   const history = useHistory();
   const { recipe: recipeID } = useParams();
 
+  const [copy, setCopy] = useState(false);
+
   const manageIngredient = (ingIndex) => {
     if (inProgressRecipes[recipeType][recipeID]) {
       const checked = inProgressRecipes[recipeType][recipeID]
         .some((ing) => ing === ingIndex);
       return checked;
     }
+  };
+
+  const copyRecipeUrl = async () => {
+    await navigator.clipboard.writeText(window.location.href.split('/in')[0]);
+    setCopy(true);
+    const TWO_SECONDS = 2000;
+    const interval = setInterval(() => {
+      setCopy(false);
+      clearInterval(interval);
+    }, TWO_SECONDS);
   };
 
   return (
@@ -40,7 +52,12 @@ function RecipeInProgressCard({
               <h4 data-testid="recipe-category">{ recipe.strCategory }</h4>
             </div>
             <div className="data-buttons">
-              <button type="button" className="btn-fav-share" data-testid="share-btn">
+              <button
+                type="button"
+                className="btn-fav-share"
+                data-testid="share-btn"
+                onClick={ () => copyRecipeUrl() }
+              >
                 <img src={ ShareIcon } alt="Share" />
               </button>
               <button
@@ -52,6 +69,7 @@ function RecipeInProgressCard({
               </button>
             </div>
           </section>
+          { copy && <p>Link copied!</p>}
           <section className="data-ingredients-parent">
             <h3 className="data-ingredients-title">Ingredients</h3>
             <div className="data-ingredients">
