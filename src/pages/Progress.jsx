@@ -65,7 +65,6 @@ export default function Progress() {
   }, [recipe, recipeID, url]);
 
   useEffect(() => {
-    console.log('effect - set');
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   }, [inProgressRecipes]);
 
