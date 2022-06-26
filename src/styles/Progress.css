@@ -17,8 +17,8 @@
 }
 
 .data-recipe-thumb {
-  object-fit: cover;
   height: 25vh;
+  object-fit: cover;
 }
 
 .data-finish-recipe-btn-parent {
