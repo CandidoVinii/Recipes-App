@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, useParams } from 'react-router-dom';
 import ShareIcon from '../images/shareIcon.svg';
-import FavoriteIcon from '../images/whiteHeartIcon.svg';
+import FavoriteIconWhite from '../images/whiteHeartIcon.svg';
+import FavoriteIconBlack from '../images/blackHeartIcon.svg';
 
 function RecipeInProgressCard({
   ingredientSteps,
   inProgressRecipes,
+  isRecipeFinished,
   handleIngredient,
   recipeArr,
   recipeType }) {
@@ -14,6 +16,8 @@ function RecipeInProgressCard({
   const { recipe: recipeID } = useParams();
 
   const [copy, setCopy] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favoriteRecipe, setFavoriteRecipe] = useState([{}]);
 
   const manageIngredient = (ingIndex) => {
     if (inProgressRecipes[recipeType][recipeID]) {
@@ -31,6 +35,37 @@ function RecipeInProgressCard({
       setCopy(false);
       clearInterval(interval);
     }, TWO_SECONDS);
+  };
+
+  useEffect(() => {
+    const item = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (item) {
+      setFavoriteRecipe(item);
+      return item[0].id === recipeID ? setIsFavorite(true) : setIsFavorite(false);
+    }
+  }, [recipeID]);
+
+  const favoriteRecipeHandler = () => {
+    setIsFavorite(true);
+    const recipe = recipeArr[0];
+    if (favoriteRecipe[0].id === recipeID) {
+      setFavoriteRecipe([{}]);
+      setIsFavorite(false);
+      localStorage.setItem('favoriteRecipes', JSON.stringify([{}]));
+    } else {
+      const favoriteRecipes = [{
+        id: recipeID,
+        type: recipeType === 'meals' ? 'food' : 'drink',
+        nationality: recipe.strArea || '',
+        category: recipe.strCategory || '',
+        alcoholicOrNot: recipe.strAlcoholic || '',
+        name: recipe.strMeal || recipe.strDrink,
+        image: recipe.strMealThumb || recipe.strDrinkThumb,
+      }];
+      setFavoriteRecipe(favoriteRecipes);
+      setIsFavorite(true);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    }
   };
 
   return (
@@ -63,9 +98,13 @@ function RecipeInProgressCard({
               <button
                 type="button"
                 className="btn-fav-share"
-                data-testid="favorite-btn"
+                onClick={ favoriteRecipeHandler }
               >
-                <img src={ FavoriteIcon } alt="Share" />
+                <img
+                  src={ isFavorite ? FavoriteIconBlack : FavoriteIconWhite }
+                  alt="Share"
+                  data-testid="favorite-btn"
+                />
               </button>
             </div>
           </section>
@@ -103,6 +142,10 @@ function RecipeInProgressCard({
               className="data-finish-recipe-btn"
               data-testid="finish-recipe-btn"
               onClick={ () => history.push('/done-recipes') }
+              disabled={ isRecipeFinished }
+              // TODO: Tentar fazer a verificação aqui.
+              // disabled={ !inProgressRecipes[recipeType][recipeID].length
+              //   === ingredientSteps.length }
             >
               finish recipe
             </button>
