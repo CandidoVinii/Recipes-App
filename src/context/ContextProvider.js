@@ -12,6 +12,7 @@ export function ContextProvider({ children }) {
   const [filterByIngredient, setFilterByIngredient] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [isFilteredByCategory, setIsFilteredByCategory] = useState(false);
+  const [isFilteredByIngredient, setIsFilteredByIngredient] = useState(false);
   const [recipesFromAPI, setRecipesFromAPI] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [recomendations, setRecomendations] = React.useState([]);
@@ -37,11 +38,10 @@ export function ContextProvider({ children }) {
   }
 
   useEffect(() => {
-    if (recipesFromAPI) {
+    if (recipesFromAPI && recipesFromAPI.length && !isFilteredByIngredient) {
       setMaxNumberOfRecipes(recipesFromAPI, setFilteredRecipes);
     }
-  }, [recipesFromAPI]);
-  const [isFilteredByIngredient, setIsFilteredByIngredient] = useState(false);
+  }, [recipesFromAPI, isFilteredByIngredient]);
 
   const context = {
     doneFilter,
