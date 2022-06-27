@@ -1,10 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import saveTokenInStorage from '../../services/api';
+import { saveTokenInStorage } from '../../services/api';
 
 function Login() {
-  const [email, setEmail] = React.useState();
-  const [password, setPassword] = React.useState();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const history = useHistory();
 
   const loginRequiriments = () => {
