@@ -1,43 +1,39 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { fetchFoodsByCategory, setMaxNumberOfRecipes } from '../services/api';
+import { fetchFoodsByCategory } from '../services/api';
 import Context from '../context/Context';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
 import RecipeFilterButtons from '../components/RecipeFilterButtons';
+import '../styles/Home/Home.css';
 
 const drinksUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const foodsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const foodsByCategoryUrl = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 const drinksByCategoryUrl = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
 
-function Foods({ history }) {
+function Home({ history }) {
   const { location: { pathname } } = history;
 
-  const defaultUrl = pathname === '/foods' ? foodsUrl : drinksUrl;
-  const key = pathname === '/foods' ? 'meals' : 'drinks';
-  const recipeType = pathname === '/foods' ? 'Meal' : 'Drink';
+  const defaultUrl = pathname.includes('/foods') ? foodsUrl : drinksUrl;
 
-  const [filteredRecipes, setFilteredRecipes] = useState([]);
-  const [recipesFromAPI, setRecipesFromAPI] = useState([]);
+  const {
+    filteredRecipes,
+    setRecipesFromAPI,
+    selectedCategory,
+    setSelectedCategory,
+  } = useContext(Context);
   const [urlToFetch, setUrlToFetch] = useState(defaultUrl);
-  const [ingredientTrue, setIngredientTrue] = useState(false);
-  const [getIngredient, setIngredient] = useState([]);
-  const { selectedCategory, filterByIngredient } = useContext(Context);
-
-  useEffect(() => {
-    console.log(filterByIngredient);
-    setIngredientTrue(true);
-    setIngredient(filterByIngredient);
-  }, [filterByIngredient]);
 
   useEffect(() => {
     switch (selectedCategory) {
     case 'All':
-      return pathname === '/foods' ? setUrlToFetch(foodsUrl) : setUrlToFetch(drinksUrl);
+      return pathname.includes('/foods')
+        ? setUrlToFetch(foodsUrl)
+        : setUrlToFetch(drinksUrl);
     default:
-      return pathname === '/foods'
+      return pathname.includes('/foods')
         ? setUrlToFetch(`${foodsByCategoryUrl}${selectedCategory}`)
         : setUrlToFetch(`${drinksByCategoryUrl}${selectedCategory}`);
     }
@@ -46,35 +42,28 @@ function Foods({ history }) {
   useEffect(() => {
     const fetchRecipes = async () => {
       const recipes = await fetchFoodsByCategory(urlToFetch);
-      setRecipesFromAPI(recipes[key]);
+      setRecipesFromAPI(Object.values(recipes)[0]);
     };
     fetchRecipes();
-  }, [key, urlToFetch]);
+  }, [urlToFetch, setRecipesFromAPI]);
 
   useEffect(() => {
-    if (recipesFromAPI.length > 0) {
-      setMaxNumberOfRecipes(recipesFromAPI, setFilteredRecipes);
-    }
-  }, [key, recipeType, recipesFromAPI]);
+    setSelectedCategory('All');
+  }, [pathname, setSelectedCategory]);
 
   return (
     <>
       <Header
-        title={ pathname === '/foods' ? 'Foods' : 'Drinks' }
+        title={ pathname.includes('/foods') ? 'Foods' : 'Drinks' }
         shouldHaveSearchButton
       />
       <RecipeFilterButtons history={ history } />
-      <div>
+      <div className="data-recipes-container">
         {
-          !ingredientTrue ? filteredRecipes.map((recipe, index) => (
+          filteredRecipes.map((recipe, index) => (
             <RecipeCard
               key={ `recipe-${index}` }
-              props={ { index, pathname, recipe, recipeType } }
-            />
-          )) : getIngredient.map((recipe, i) => (
-            <RecipeCard
-              key={ `recipe-${i}` }
-              props={ { index: i, pathname, recipe, recipeType } }
+              props={ { index, pathname, recipe } }
             />
           ))
         }
@@ -84,8 +73,8 @@ function Foods({ history }) {
   );
 }
 
-Foods.propTypes = {
+Home.propTypes = {
   history: PropTypes.shape(),
 }.isRequired;
 
-export default Foods;
+export default Home;
