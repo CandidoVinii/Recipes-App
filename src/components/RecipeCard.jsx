@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 function RecipeCard({ props }) {
   const { index, pathname, recipe } = props;
-  const recipeType = pathname === '/foods' ? 'Meal' : 'Drink';
+  const recipeType = pathname.includes('/foods') ? 'Meal' : 'Drink';
 
   return (
     <div key={ `recipe-${index}` }>
