@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import RecipeInProgressCard from '../components/RecipeInProgressCard';
 import '../styles/Progress.css';
@@ -69,19 +69,20 @@ export default function Progress() {
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   }, [inProgressRecipes]);
 
-  const checkIfRecipeIsFinished = (ingredients) => {
-    const bool = ingredients.length
-    === ingredientSteps.length;
-    setIsRecipeFinished(!bool);
-  };
+  const checkIfRecipeIsFinished = useCallback((ingredients) => {
+    const isFinished = ingredients.length === ingredientSteps.length;
+    setIsRecipeFinished(isFinished);
+  }, [ingredientSteps]);
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (items && recipeType) {
       const ingredients = items[recipeType][recipeID];
-      checkIfRecipeIsFinished(ingredients);
+      if (ingredients) {
+        checkIfRecipeIsFinished(ingredients);
+      }
     }
-  }, [recipeID]);
+  }, [checkIfRecipeIsFinished, recipeID, recipeType]);
 
   const handleIngredient = (ingredient) => {
     let prevIngredients = [];
