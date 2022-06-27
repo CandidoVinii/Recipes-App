@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../context/Context';
+import '../styles/Home/RecipeFilterButtons.css';
 
 const foodCategoriesUrl = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 const drinkCategoriesUrl = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
@@ -44,8 +45,9 @@ function RecipeFilterButtons({ history }) {
 
   return (
     <>
-      <div className="data-category-buttons">
+      <div className="data-category-buttons-container">
         <button
+          className="data-category-buttons"
           data-testid="All-category-filter"
           onClick={ () => {
             setSelectedCategory('All');
@@ -58,6 +60,7 @@ function RecipeFilterButtons({ history }) {
         {
           categoriesList.map((category) => (
             <button
+              className="data-category-buttons"
               data-testid={ `${category.strCategory}-category-filter` }
               key={ category.strCategory }
               onClick={ () => selectCategoryToggle(category.strCategory) }
@@ -69,15 +72,19 @@ function RecipeFilterButtons({ history }) {
           ))
         }
       </div>
-      {
-        selectedCategory === 'All'
-          ? (
-            <p>Mostrando todas as receitas</p>
-          )
-          : (
-            <p>{`Mostrando receitas da categoria ${selectedCategory}`}</p>
-          )
-      }
+      <div className="data-selected-category-container">
+        {
+          selectedCategory === 'All'
+            ? (
+              <p className="data-selected-category">Mostrando todas as receitas</p>
+            )
+            : (
+              <p className="data-selected-category">
+                {`Mostrando receitas da categoria ${selectedCategory}`}
+              </p>
+            )
+        }
+      </div>
     </>
   );
 }

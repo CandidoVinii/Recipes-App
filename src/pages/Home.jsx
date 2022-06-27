@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// import { fetchFoodsByCategory, setMaxNumberOfRecipes } from '../services/api';
 import { fetchFoodsByCategory } from '../services/api';
 import Context from '../context/Context';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeCard from '../components/RecipeCard';
 import RecipeFilterButtons from '../components/RecipeFilterButtons';
+import '../styles/Home/Home.css';
 
 const drinksUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const foodsUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -58,7 +58,7 @@ function Home({ history }) {
         shouldHaveSearchButton
       />
       <RecipeFilterButtons history={ history } />
-      <div>
+      <div className="data-recipes-container">
         {filteredRecipes.map((recipe, index) => (
           <RecipeCard
             key={ `recipe-${index}` }

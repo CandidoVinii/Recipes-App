@@ -1,47 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import '../styles/Home/RecipeCard.css';
 
 function RecipeCard({ props }) {
   const { index, pathname, recipe } = props;
   const recipeType = pathname.includes('/foods') ? 'Meal' : 'Drink';
 
   return (
-    <div key={ `recipe-${index}` }>
+    <Link
+      className="data-recipe-card-container"
+      key={ `recipe-${index}` }
+      data-testid={ `${index}-recipe-card` }
+      to={ `${pathname}/${recipe.idMeal || recipe.idDrink}` }
+    >
       {recipeType === 'Meal'
         ? (
-          <Link
-            data-testid={ `${index}-recipe-card` }
-            to={ `${pathname}/${recipe.idMeal}` }
-          >
+          <>
             <img
+              className="data-recipe-card-thumb"
               data-testid={ `${index}-card-img` }
               src={ recipe.strMealThumb }
               alt={ recipe.strIdMeal }
-              width="100px"
             />
-            <p data-testid={ `${index}-card-name` }>
+            <p className="data-recipe-card-title" data-testid={ `${index}-card-name` }>
               { recipe.strMeal }
             </p>
-          </Link>
+          </>
         )
         : (
-          <Link
-            data-testid={ `${index}-recipe-card` }
-            to={ `${pathname}/${recipe.idDrink}` }
-          >
+          <>
             <img
+              className="data-recipe-card-thumb"
               data-testid={ `${index}-card-img` }
               src={ recipe.strDrinkThumb }
               alt={ recipe.strIdDrink }
               width="100px"
             />
-            <p data-testid={ `${index}-card-name` }>
+            <p className="data-recipe-card-title" data-testid={ `${index}-card-name` }>
               { recipe.strDrink }
             </p>
-          </Link>
+          </>
         )}
-    </div>
+    </Link>
   );
 }
 
