@@ -1,0 +1,33 @@
+.data-category-buttons-container {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  flex-grow: 1;
+  justify-content: space-evenly;
+  margin: auto;
+  width: 95%;
+}
+
+.data-category-buttons {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #7d7c83;
+  color: #7d7c83;
+  flex: 1 1 auto;
+  font-size: 1em;
+  font-weight: 600;
+  padding-bottom: 2px;
+}
+
+.data-category-buttons:hover {
+  border-bottom: 3px solid #ec2333;
+  color: #ec2333;
+  padding-bottom: 0;
+}
+
+.data-selected-category {
+  color: black;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 1vh 2vw 2vh;
+}
