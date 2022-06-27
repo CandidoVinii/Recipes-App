@@ -22,10 +22,10 @@ function App() {
     <div className="App">
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/foods/:recipe-id/in-progress" component={ Progress } />
-        <Route path="/drinks/:recipe-id/in-progress" component={ Progress } />
-        <Route path="/foods/:recipe-id" component={ Foods } />
-        <Route path="/drinks/:recipe-id" component={ Drinks } />
+        <Route path="/foods/:recipe/in-progress" component={ Progress } />
+        <Route path="/drinks/:recipe/in-progress" component={ Progress } />
+        <Route exact path="/foods/:recipe-id" component={ Foods } />
+        <Route exact path="/drinks/:recipe-id" component={ Drinks } />
         <Route exact path="/foods" component={ Home } />
         <Route exact path="/drinks" component={ Home } />
         <Route path="/explore/foods/ingredients" component={ Ingredients } />

@@ -1,0 +1,53 @@
+.data-recipe-info-parent {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.data-recipe-title {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+}
+
+.data-buttons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+.data-recipe-thumb {
+  height: 25vh;
+  object-fit: cover;
+}
+
+.data-finish-recipe-btn-parent {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.data-finish-recipe-btn {
+  background-color: greenyellow;
+  border: 0;
+  border-radius: 100px;
+  color: white;
+  font-size: 2em;
+  font-variant: small-caps;
+  font-weight: 600;
+  height: 10vh;
+  text-shadow: black 1px 0 2px;
+  width: 75vw;
+}
+
+.btn-fav-share {
+  background: none;
+  border: 0;
+}
+
+.data-ingredient-step {
+  align-items: baseline;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
