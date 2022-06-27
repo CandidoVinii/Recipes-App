@@ -22,7 +22,15 @@ function Foods({ history }) {
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [recipesFromAPI, setRecipesFromAPI] = useState([]);
   const [urlToFetch, setUrlToFetch] = useState(defaultUrl);
-  const { selectedCategory } = useContext(Context);
+  const [ingredientTrue, setIngredientTrue] = useState(false);
+  const [getIngredient, setIngredient] = useState([]);
+  const { selectedCategory, filterByIngredient } = useContext(Context);
+
+  useEffect(() => {
+    console.log(filterByIngredient);
+    setIngredientTrue(true);
+    setIngredient(filterByIngredient);
+  }, [filterByIngredient]);
 
   useEffect(() => {
     switch (selectedCategory) {
@@ -57,12 +65,19 @@ function Foods({ history }) {
       />
       <RecipeFilterButtons history={ history } />
       <div>
-        {filteredRecipes.map((recipe, index) => (
-          <RecipeCard
-            key={ `recipe-${index}` }
-            props={ { index, pathname, recipe, recipeType } }
-          />
-        ))}
+        {
+          !ingredientTrue ? filteredRecipes.map((recipe, index) => (
+            <RecipeCard
+              key={ `recipe-${index}` }
+              props={ { index, pathname, recipe, recipeType } }
+            />
+          )) : getIngredient.map((recipe, i) => (
+            <RecipeCard
+              key={ `recipe-${i}` }
+              props={ { index: i, pathname, recipe, recipeType } }
+            />
+          ))
+        }
       </div>
       <Footer />
     </>

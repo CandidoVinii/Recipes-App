@@ -6,6 +6,8 @@ function ContextProvider({ children }) {
   const [doneFilter, setDoneFilter] = useState('all');
   const [isFilteredByCategory, setIsFilteredByCategory] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [filterByIngredient, setFilterByIngredient] = useState([]);
+
   const context = {
     doneFilter,
     setDoneFilter,
@@ -13,6 +15,8 @@ function ContextProvider({ children }) {
     setIsFilteredByCategory,
     selectedCategory,
     setSelectedCategory,
+    filterByIngredient,
+    setFilterByIngredient,
   };
 
   return (

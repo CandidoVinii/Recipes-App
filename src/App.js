@@ -27,8 +27,8 @@ function App() {
         <Route path="/drinks/:recipe-id" component={ Drinks } />
         <Route exact path="/foods" component={ Home } />
         <Route exact path="/drinks" component={ Home } />
-        <Route path="/explore/foods/ingredients" component={ Ingredients } />
-        <Route path="/explore/drinks/ingredients" component={ Ingredients } />
+        <Route exact path="/explore/foods/ingredients" component={ Ingredients } />
+        <Route exact path="/explore/drinks/ingredients" component={ Ingredients } />
         <Route exact path="/explore/foods" component={ ExploreFoods } />
         <Route path="/explore/drinks" component={ ExploreDrinks } />
         <Route path="/explore/foods/nationalities" component={ Nationalities } />
