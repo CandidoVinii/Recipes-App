@@ -10,7 +10,10 @@ const number = 12;
 function Ingredients() {
   const [ingredients, setIngredients] = useState([]);
   const [foodOrDrink, setFoodOrDrink] = useState('');
-  const { setFilterByIngredient } = useContext(Context);
+  const {
+    setFilteredRecipes,
+    setIsFilteredByIngredient,
+  } = useContext(Context);
   const history = useHistory();
 
   useEffect(() => {
@@ -36,13 +39,13 @@ function Ingredients() {
   }, [history]);
 
   const fetchIngredient = async (ingredient, drinkOrFood) => {
-    // const url = `www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
     const url = drinkOrFood === 'drinks' ? `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`
       : `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
     const response = await fetch(url);
     const data = await response.json();
     const result = drinkOrFood === 'drinks' ? data.drinks : data.meals;
-    setFilterByIngredient(result.filter((_item, index) => index < number));
+    setIsFilteredByIngredient(true);
+    setFilteredRecipes(result.filter((_item, index) => index < number));
   };
 
   return (
