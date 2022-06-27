@@ -14,7 +14,7 @@ import FoodDetails from './pages/FoodDetails/FoodDetails';
 import DrinkDetails from './pages/DrinkDetails/DrinkDetails';
 import Nationalities from './pages/Nationalities';
 import Profile from './pages/Profile';
-import Progress from './pages/Progress';
+import Progress from './pages/RecipeInProgress';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PageNotFound from './pages/PageNotFound';
