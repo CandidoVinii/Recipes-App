@@ -30,9 +30,9 @@ function RecipeFilterButtons({ history }) {
     async function fetchCategories() {
       const MAX_CATEGORIES = 5;
       let response;
-      if (pathname === '/foods') {
+      if (pathname.includes('/foods')) {
         response = await fetch(foodCategoriesUrl);
-      } else if (pathname === '/drinks') {
+      } else if (pathname.includes('/drinks')) {
         response = await fetch(drinkCategoriesUrl);
       }
       const data = await response.json();

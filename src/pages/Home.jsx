@@ -16,7 +16,7 @@ const drinksByCategoryUrl = 'https://www.thecocktaildb.com/api/json/v1/1/filter.
 function Home({ history }) {
   const { location: { pathname } } = history;
 
-  const defaultUrl = pathname === '/foods' ? foodsUrl : drinksUrl;
+  const defaultUrl = pathname.includes('/foods') ? foodsUrl : drinksUrl;
 
   const {
     filteredRecipes,
@@ -29,9 +29,11 @@ function Home({ history }) {
   useEffect(() => {
     switch (selectedCategory) {
     case 'All':
-      return pathname === '/foods' ? setUrlToFetch(foodsUrl) : setUrlToFetch(drinksUrl);
+      return pathname.includes('/foods')
+        ? setUrlToFetch(foodsUrl)
+        : setUrlToFetch(drinksUrl);
     default:
-      return pathname === '/foods'
+      return pathname.includes('/foods')
         ? setUrlToFetch(`${foodsByCategoryUrl}${selectedCategory}`)
         : setUrlToFetch(`${drinksByCategoryUrl}${selectedCategory}`);
     }
@@ -43,16 +45,16 @@ function Home({ history }) {
       setRecipesFromAPI(Object.values(recipes)[0]);
     };
     fetchRecipes();
-  }, [urlToFetch]);
+  }, [urlToFetch, setRecipesFromAPI]);
 
   useEffect(() => {
     setSelectedCategory('All');
-  }, [pathname]);
+  }, [pathname, setSelectedCategory]);
 
   return (
     <>
       <Header
-        title={ pathname === '/foods' ? 'Foods' : 'Drinks' }
+        title={ pathname.includes('/foods') ? 'Foods' : 'Drinks' }
         shouldHaveSearchButton
       />
       <RecipeFilterButtons history={ history } />
