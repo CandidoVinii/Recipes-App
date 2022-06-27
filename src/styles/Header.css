@@ -1,0 +1,25 @@
+.data-header-container {
+  align-items: center;
+  background-color: black;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.data-header-title {
+  color: white;
+  font-size: 8vh;
+  font-style: oblique;
+  font-variant-caps: all-small-caps;
+  font-weight: 700;
+}
+
+.header-btn {
+  background: none;
+  border: none;
+  padding: 0 10px;
+}
+
+.data-button-img {
+  filter: invert(1);
+}
