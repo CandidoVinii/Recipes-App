@@ -12,7 +12,7 @@ import Ingredients from './pages/Ingredients';
 import Login from './pages/login/Login';
 import Nationalities from './pages/Nationalities';
 import Profile from './pages/Profile';
-import Progress from './pages/Progress';
+import Progress from './pages/RecipeInProgress';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import PageNotFound from './pages/PageNotFound';
