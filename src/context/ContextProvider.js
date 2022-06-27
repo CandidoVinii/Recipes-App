@@ -37,12 +37,6 @@ export function ContextProvider({ children }) {
     setSelectedFood(meals[0]);
   }
 
-  useEffect(() => {
-    if (recipesFromAPI && recipesFromAPI.length && !isFilteredByIngredient) {
-      setMaxNumberOfRecipes(recipesFromAPI, setFilteredRecipes);
-    }
-  }, [recipesFromAPI, isFilteredByIngredient]);
-
   const context = {
     doneFilter,
     setDoneFilter,
@@ -50,19 +44,19 @@ export function ContextProvider({ children }) {
     setFilteredRecipes,
     isFilteredByCategory,
     setIsFilteredByCategory,
+    isFilteredByIngredient,
+    setIsFilteredByIngredient,
     recipesFromAPI,
     setRecipesFromAPI,
+    recomendations,
     selectedCategory,
     setSelectedCategory,
-    recomendations,
-    selectedFood,
     selectedDrink,
+    selectedFood,
     getApiDrinksDetails,
     getApiFoodsDetails,
     filterByIngredient,
     setFilterByIngredient,
-    isFilteredByIngredient,
-    setIsFilteredByIngredient,
   };
 
   useEffect(() => {
