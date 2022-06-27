@@ -59,12 +59,14 @@ function Home({ history }) {
       />
       <RecipeFilterButtons history={ history } />
       <div className="data-recipes-container">
-        {filteredRecipes.map((recipe, index) => (
-          <RecipeCard
-            key={ `recipe-${index}` }
-            props={ { index, pathname, recipe } }
-          />
-        ))}
+        {
+          filteredRecipes.map((recipe, index) => (
+            <RecipeCard
+              key={ `recipe-${index}` }
+              props={ { index, pathname, recipe } }
+            />
+          ))
+        }
       </div>
       <Footer />
     </>

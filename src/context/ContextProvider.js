@@ -9,6 +9,7 @@ import { apiDrinksDetails,
 
 export function ContextProvider({ children }) {
   const [doneFilter, setDoneFilter] = useState('all');
+  const [filterByIngredient, setFilterByIngredient] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [isFilteredByCategory, setIsFilteredByCategory] = useState(false);
   const [recipesFromAPI, setRecipesFromAPI] = useState([]);
@@ -40,6 +41,7 @@ export function ContextProvider({ children }) {
       setMaxNumberOfRecipes(recipesFromAPI, setFilteredRecipes);
     }
   }, [recipesFromAPI]);
+  const [isFilteredByIngredient, setIsFilteredByIngredient] = useState(false);
 
   const context = {
     doneFilter,
@@ -57,7 +59,17 @@ export function ContextProvider({ children }) {
     selectedDrink,
     getApiDrinksDetails,
     getApiFoodsDetails,
+    filterByIngredient,
+    setFilterByIngredient,
+    isFilteredByIngredient,
+    setIsFilteredByIngredient,
   };
+
+  useEffect(() => {
+    if (recipesFromAPI && recipesFromAPI.length && !isFilteredByIngredient) {
+      setMaxNumberOfRecipes(recipesFromAPI, setFilteredRecipes);
+    }
+  }, [recipesFromAPI, isFilteredByIngredient]);
 
   return (
     <Context.Provider value={ context }>
