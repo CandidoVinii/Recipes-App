@@ -5,10 +5,12 @@ import { setMaxNumberOfRecipes } from '../services/api';
 
 function ContextProvider({ children }) {
   const [doneFilter, setDoneFilter] = useState('all');
+  const [filterByIngredient, setFilterByIngredient] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [isFilteredByCategory, setIsFilteredByCategory] = useState(false);
   const [recipesFromAPI, setRecipesFromAPI] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [isFilteredByIngredient, setIsFilteredByIngredient] = useState(false);
 
   const context = {
     doneFilter,
@@ -21,13 +23,17 @@ function ContextProvider({ children }) {
     setRecipesFromAPI,
     selectedCategory,
     setSelectedCategory,
+    filterByIngredient,
+    setFilterByIngredient,
+    isFilteredByIngredient,
+    setIsFilteredByIngredient,
   };
 
   useEffect(() => {
-    if (recipesFromAPI) {
+    if (recipesFromAPI && recipesFromAPI.length && !isFilteredByIngredient) {
       setMaxNumberOfRecipes(recipesFromAPI, setFilteredRecipes);
     }
-  }, [recipesFromAPI]);
+  }, [recipesFromAPI, isFilteredByIngredient]);
 
   return (
     <Context.Provider value={ context }>
