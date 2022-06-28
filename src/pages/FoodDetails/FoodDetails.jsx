@@ -1,23 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import CardRecipe from '../../components/CardRecipe/CardRecipe';
 import RecipeDetail from '../../components/RecipeDetail/RecipeDetail';
 import RecomendationsCarrousel from
 '../../components/RecomendationsCarrousel/RecomendationsCarrousel';
-import { useContextProvider } from '../../context/ContextProvider';
-
+import Context from '../../context/Context';
 import './FoodDetails.css';
 
 export default function FoodDetails() {
-  const { selectedFood, recomendations, getApiFoodsDetails } = useContextProvider();
+  const { selectedFood, recomendations,
+    getApiFoodsDetails } = useContext(Context);
   const { id } = useParams();
   const maxLength = 6;
   React.useEffect(() => {
     getApiFoodsDetails(id, true);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(selectedFood);
 
   const getIngredientsAndMeasures = () => {
     const foodKeys = Object.keys(selectedFood);
