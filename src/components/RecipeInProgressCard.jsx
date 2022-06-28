@@ -25,7 +25,6 @@ function RecipeInProgressCard({
         .some((ing) => ing === ingIndex);
       return checked;
     }
-    return false;
   };
 
   const copyRecipeUrl = async () => {
@@ -45,6 +44,29 @@ function RecipeInProgressCard({
       return item[0].id === recipeID ? setIsFavorite(true) : setIsFavorite(false);
     }
   }, [recipeID]);
+
+  const setRecipesToStorage = () => {
+    const item = JSON.parse(localStorage.getItem('doneRecipes'));
+    const recipe = recipeArr[0];
+    const recipeObj = {
+      id: recipe.idMeal || recipe.idDrink,
+      type: recipe.idDrink ? 'drink' : 'food',
+      nationality: recipe.strArea || '',
+      category: recipe.strCategory || '',
+      alcoholicOrNot: recipe.strAlcoholic || '',
+      name: recipe.strMeal || recipe.strDrink,
+      image: recipe.strMealThumb || recipe.strDrinkThumb,
+      doneDate: new Date().toLocaleDateString(),
+      tags: recipe.strTags || [],
+    };
+    if (item) {
+      const newItem = [...item, recipeObj];
+      localStorage.setItem('doneRecipes', JSON.stringify(newItem));
+    } else {
+      localStorage.setItem('doneRecipes', JSON.stringify([recipeObj]));
+    }
+    history.push('/done-recipes');
+  };
 
   const favoriteRecipeHandler = () => {
     setIsFavorite(true);
@@ -142,8 +164,8 @@ function RecipeInProgressCard({
               type="button"
               className="data-finish-recipe-btn"
               data-testid="finish-recipe-btn"
-              onClick={ () => history.push('/done-recipes') }
-              disabled={ !isRecipeFinished }
+              onClick={ setRecipesToStorage }
+              disabled={ isRecipeFinished }
               // TODO: Tentar fazer a verificação aqui.
               // disabled={ !inProgressRecipes[recipeType][recipeID].length
               //   === ingredientSteps.length }
