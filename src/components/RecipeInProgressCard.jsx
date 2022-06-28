@@ -48,6 +48,7 @@ function RecipeInProgressCard({
   const setRecipesToStorage = () => {
     const item = JSON.parse(localStorage.getItem('doneRecipes'));
     const recipe = recipeArr[0];
+    const arrayTags = recipe.strTags && recipe.strTags.replaceAll(',', ', ').split(', ');
     const recipeObj = {
       id: recipe.idMeal || recipe.idDrink,
       type: recipe.idDrink ? 'drink' : 'food',
@@ -57,7 +58,7 @@ function RecipeInProgressCard({
       name: recipe.strMeal || recipe.strDrink,
       image: recipe.strMealThumb || recipe.strDrinkThumb,
       doneDate: new Date().toLocaleDateString(),
-      tags: recipe.strTags || [],
+      tags: arrayTags || [],
     };
     if (item) {
       const newItem = [...item, recipeObj];
