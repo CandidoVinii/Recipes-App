@@ -1,6 +1,7 @@
 .data-header-container {
   align-items: center;
-  background-color: black;
+  /* background-color: black; */
+  background-color: #ee6055;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -12,6 +13,8 @@
   font-style: oblique;
   font-variant-caps: all-small-caps;
   font-weight: 700;
+  text-shadow: 2px 2px 1px black;
+  letter-spacing: 2vw;
 }
 
 .header-btn {
