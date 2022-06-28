@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import CardRecipe from '../../components/CardRecipe/CardRecipe';
 import RecipeDetail from '../../components/RecipeDetail/RecipeDetail';
 import RecomendationsCarrousel from
 '../../components/RecomendationsCarrousel/RecomendationsCarrousel';
-import { useContextProvider } from '../../context/ContextProvider';
 
 import './DrinkDetails.css';
+import Context from '../../context/Context';
 
 export default function DrinkDetails() {
-  const { selectedDrink, recomendations, getApiDrinksDetails } = useContextProvider();
+  const { selectedDrink, recomendations, getApiDrinksDetails } = useContext(Context);
   const { id } = useParams();
   const maxLength = 6;
   React.useEffect(() => {
