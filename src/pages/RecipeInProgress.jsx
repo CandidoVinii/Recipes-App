@@ -20,7 +20,7 @@ export default function Progress() {
     };
   });
   const [ingredientSteps, setIngredientSteps] = useState([]);
-  const [isRecipeFinished, setIsRecipeFinished] = useState(true);
+  const [isRecipeFinished, setIsRecipeFinished] = useState(false);
   const [recipe, setRecipe] = useState([]);
   const [recipeType, setRecipeType] = useState('');
   const [url, setUrl] = useState('');
@@ -92,17 +92,21 @@ export default function Progress() {
       const newInProgressRecipe = {
         ...items,
         [recipeType]: {
+          ...items[recipeType],
           [recipeID]: [ingredient],
         },
       };
       setInProgressRecipes(newInProgressRecipe);
     } else {
       prevIngredients = items[recipeType][recipeID];
+      console.log('1', prevIngredients);
       if (prevIngredients.includes(ingredient)) {
         prevIngredients = prevIngredients
           .filter((currIngredient) => currIngredient !== ingredient);
+        console.log('2', prevIngredients);
       } else {
         prevIngredients = [...prevIngredients, ingredient];
+        console.log('3', prevIngredients);
       }
       const newInProgressRecipe = {
         ...inProgressRecipes,
