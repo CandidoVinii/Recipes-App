@@ -70,7 +70,6 @@ function Card({ doneRecipes, originalDoneRecipes, setDoneRecipes }) {
           >
             <img src={ shareIcon } alt={ `Compartilhar receita de ${recipe.name}` } />
           </button>
-          {/* TODO: ARRUMAR ISSO */}
           { recipe.tags.map((tag, indice) => (
             <div key={ indice }>
               <span
