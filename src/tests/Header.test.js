@@ -89,12 +89,12 @@ describe('Teste o componente Header:', () => {
 
   it('se não tem Header na Tela de Receita em Progresso de bebida', () => {
     renderWithRouter(<Progress />);
-    const profileButton = screen.queryByTestId(profileTest);
-    expect(profileButton).not.toBeInTheDocument();
-    const searchButton = screen.queryByTestId(searchTest);
-    expect(searchButton).not.toBeInTheDocument();
-    const title = screen.queryByTestId(titleTest);
-    expect(title).not.toBeInTheDocument();
+    const profileButtonDrinks = screen.queryByTestId(profileTest);
+    expect(profileButtonDrinks).not.toBeInTheDocument();
+    const searchButtonDrinks = screen.queryByTestId(searchTest);
+    expect(searchButtonDrinks).not.toBeInTheDocument();
+    const titleDrinks = screen.queryByTestId(titleTest);
+    expect(titleDrinks).not.toBeInTheDocument();
   });
 
   it('se o Header tem os ícones corretos na Tela de Explorar', () => {
@@ -210,19 +210,14 @@ describe('Teste se pessoa usuária será redirecionada para a tela de perfil:', 
 describe('Teste botão de busca que, ao ser clicado, mostre a barra de busca:', () => {
   it('se ao clicar no botão de busca pela primeira vez a barra aparece', () => {
     renderWithRouter(<Foods />);
-    const searchButton = screen.queryByTestId(searchTest);
-    // userEvent.click(searchButton);
     const searchInputTestid = screen.queryByTestId('search-input');
     expect(searchInputTestid).toBeDefined();
   });
 
   it('se ao clicar no botão de busca pela segunda vez a barra desaparece', () => {
     renderWithRouter(<Foods />);
-    const searchButton = screen.queryByTestId(searchTest);
-    // userEvent.click(searchButton);
     const searchInputTestid = screen.queryByTestId('search-input');
     expect(searchInputTestid).toBeDefined();
-    // userEvent.click(searchButton);
     expect(searchInputTestid).not.toBeInTheDocument();
   });
 });
