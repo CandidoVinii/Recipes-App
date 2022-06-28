@@ -25,6 +25,7 @@ function RecipeInProgressCard({
         .some((ing) => ing === ingIndex);
       return checked;
     }
+    return false;
   };
 
   const copyRecipeUrl = async () => {
@@ -166,7 +167,7 @@ function RecipeInProgressCard({
               className="data-finish-recipe-btn"
               data-testid="finish-recipe-btn"
               onClick={ setRecipesToStorage }
-              disabled={ isRecipeFinished }
+              disabled={ !isRecipeFinished }
               // TODO: Tentar fazer a verificação aqui.
               // disabled={ !inProgressRecipes[recipeType][recipeID].length
               //   === ingredientSteps.length }
