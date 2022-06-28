@@ -17,11 +17,8 @@ export default function FoodDetails() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(selectedFood);
-
   const getIngredientsAndMeasures = () => {
     const foodKeys = Object.keys(selectedFood);
-    console.log(foodKeys);
     const ingredients = foodKeys.map((key) => {
       if (key.includes('strIngredient') && selectedFood[key]) {
         return {
