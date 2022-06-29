@@ -4,38 +4,43 @@ import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import '../styles/Header.css';
 
 function Header({ title, shouldHaveSearchButton }) {
   const history = useHistory();
   const [searchBar, setSearchBar] = useState(false);
 
   return (
-    <header>
-      <button
-        data-testid="profile-top-btn"
-        type="button"
-        onClick={ () => history.push('/profile') }
-        src={ profileIcon }
-      >
-        <img src={ profileIcon } alt="profileIcon" />
-      </button>
-      <h1 data-testid="page-title">{title}</h1>
-      {shouldHaveSearchButton && (
+    <>
+      <header className="data-header-container">
         <button
-          data-testid="search-top-btn"
+          className="data-profile-button header-btn"
+          data-testid="profile-top-btn"
           type="button"
-          onClick={ () => setSearchBar(!searchBar) }
-          src={ searchIcon }
+          onClick={ () => history.push('/profile') }
+          src={ profileIcon }
         >
-          <img src={ searchIcon } alt="searchIcon" />
+          <img className="data-button-img" src={ profileIcon } alt="profileIcon" />
         </button>
-      )}
+        <h1 className="data-header-title" data-testid="page-title">{title}</h1>
+        {shouldHaveSearchButton && (
+          <button
+            className="data-search-button header-btn"
+            data-testid="search-top-btn"
+            type="button"
+            onClick={ () => setSearchBar(!searchBar) }
+            src={ searchIcon }
+          >
+            <img className="data-button-img" src={ searchIcon } alt="searchIcon" />
+          </button>
+        )}
+      </header>
       {
         searchBar && (
           <SearchBar />
         )
       }
-    </header>
+    </>
   );
 }
 

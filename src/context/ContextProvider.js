@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Context from './Context';
 import { apiDrinksDetails,
@@ -12,36 +12,30 @@ export function ContextProvider({ children }) {
   const [filterByIngredient, setFilterByIngredient] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [isFilteredByCategory, setIsFilteredByCategory] = useState(false);
+  const [isFilteredByIngredient, setIsFilteredByIngredient] = useState(false);
   const [recipesFromAPI, setRecipesFromAPI] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [recomendations, setRecomendations] = React.useState([]);
-  const [selectedFood, setSelectedFood] = React.useState();
+  const [selectedFood, setSelectedFood] = useState('');
   const [selectedDrink, setSelectedDrink] = React.useState();
 
   async function getApiDrinksDetails(id, withRecomendations = false) {
     const response = await apiDrinksDetails(id);
-    if (withRecomendations) {
+    if (response && withRecomendations) {
       const foodsRecomendations = await getFoods();
       setRecomendations(foodsRecomendations.meals);
+      setSelectedDrink(response.drinks[0]);
     }
-    setSelectedDrink(response.drinks[0]);
   }
 
   async function getApiFoodsDetails(id, withRecomendations = false) {
     const { meals } = await apiFoodsDetails(id);
-    if (withRecomendations) {
+    if (meals && withRecomendations) {
       const drinksRecomendations = await getDrinks();
       setRecomendations(drinksRecomendations.drinks);
+      setSelectedFood(meals[0]);
     }
-    setSelectedFood(meals[0]);
   }
-
-  useEffect(() => {
-    if (recipesFromAPI) {
-      setMaxNumberOfRecipes(recipesFromAPI, setFilteredRecipes);
-    }
-  }, [recipesFromAPI]);
-  const [isFilteredByIngredient, setIsFilteredByIngredient] = useState(false);
 
   const context = {
     doneFilter,
@@ -50,19 +44,19 @@ export function ContextProvider({ children }) {
     setFilteredRecipes,
     isFilteredByCategory,
     setIsFilteredByCategory,
+    isFilteredByIngredient,
+    setIsFilteredByIngredient,
     recipesFromAPI,
     setRecipesFromAPI,
+    recomendations,
     selectedCategory,
     setSelectedCategory,
-    recomendations,
-    selectedFood,
     selectedDrink,
+    selectedFood,
     getApiDrinksDetails,
     getApiFoodsDetails,
     filterByIngredient,
     setFilterByIngredient,
-    isFilteredByIngredient,
-    setIsFilteredByIngredient,
   };
 
   useEffect(() => {
@@ -82,4 +76,4 @@ ContextProvider.propTypes = {
   children: PropTypes.node,
 }.isRequired;
 
-export const useContextProvider = () => useContext(Context);
+export default ContextProvider;

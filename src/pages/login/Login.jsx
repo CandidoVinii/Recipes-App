@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { saveTokenInStorage } from '../../services/api';
+import '../../styles/Login/Login.css';
 
 function Login() {
   const [email, setEmail] = React.useState('');
@@ -19,9 +20,10 @@ function Login() {
   };
 
   return (
-    <div>
-      <form onSubmit={ handleSubmit }>
+    <div className="data-login-form-container">
+      <form className="data-login-form" onSubmit={ handleSubmit }>
         <input
+          className="data-login-input"
           type="email"
           data-testid="email-input"
           value={ email }
@@ -29,6 +31,7 @@ function Login() {
           placeholder="email@xample.com"
         />
         <input
+          className="data-login-input"
           type="password"
           data-testid="password-input"
           value={ password }
@@ -36,6 +39,7 @@ function Login() {
           placeholder="**********"
         />
         <button
+          className="data-login-btn"
           type="submit"
           data-testid="login-submit-btn"
           disabled={ !loginRequiriments() }

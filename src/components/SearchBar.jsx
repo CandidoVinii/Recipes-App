@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import Context from '../context/Context';
 import IgredientFilterButtons from './IngredientFilterButtons';
+import '../styles/components/SearchBar.css';
 
 function SearchBar() {
   const firstL = 'first-letter';
@@ -91,14 +92,16 @@ function SearchBar() {
   };
 
   return (
-    <div>
-      <div>
+    <section className="data-searchbar-container">
+      <div className="data-search-input-container">
         <input
+          className="data-search-input"
           type="text"
           data-testid="search-input"
           onChange={ handleChange }
         />
         <button
+          className="data-search-btn"
           type="button"
           data-testid="exec-search-btn"
           onClick={ handleClick }
@@ -107,7 +110,7 @@ function SearchBar() {
         </button>
       </div>
       <IgredientFilterButtons setType={ setType } />
-    </div>
+    </section>
   );
 }
 

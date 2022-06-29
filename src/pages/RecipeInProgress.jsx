@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import RecipeInProgressCard from '../components/RecipeInProgressCard';
 import '../styles/Progress.css';
@@ -20,7 +20,7 @@ export default function Progress() {
     };
   });
   const [ingredientSteps, setIngredientSteps] = useState([]);
-  const [isRecipeFinished, setIsRecipeFinished] = useState(true);
+  const [isRecipeFinished, setIsRecipeFinished] = useState(false);
   const [recipe, setRecipe] = useState([]);
   const [recipeType, setRecipeType] = useState('');
   const [url, setUrl] = useState('');
@@ -69,19 +69,20 @@ export default function Progress() {
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   }, [inProgressRecipes]);
 
-  const checkIfRecipeIsFinished = (ingredients) => {
-    const bool = ingredients.length
-    === ingredientSteps.length;
-    setIsRecipeFinished(!bool);
-  };
+  const checkIfRecipeIsFinished = useCallback((ingredients) => {
+    const isFinished = ingredients.length === ingredientSteps.length;
+    setIsRecipeFinished(isFinished);
+  }, [ingredientSteps]);
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (items && recipeType) {
       const ingredients = items[recipeType][recipeID];
-      checkIfRecipeIsFinished(ingredients);
+      if (ingredients) {
+        checkIfRecipeIsFinished(ingredients);
+      }
     }
-  }, [recipeID]);
+  }, [checkIfRecipeIsFinished, recipeID, recipeType]);
 
   const handleIngredient = (ingredient) => {
     let prevIngredients = [];
@@ -91,17 +92,21 @@ export default function Progress() {
       const newInProgressRecipe = {
         ...items,
         [recipeType]: {
+          ...items[recipeType],
           [recipeID]: [ingredient],
         },
       };
       setInProgressRecipes(newInProgressRecipe);
     } else {
       prevIngredients = items[recipeType][recipeID];
+      console.log('1', prevIngredients);
       if (prevIngredients.includes(ingredient)) {
         prevIngredients = prevIngredients
           .filter((currIngredient) => currIngredient !== ingredient);
+        console.log('2', prevIngredients);
       } else {
         prevIngredients = [...prevIngredients, ingredient];
+        console.log('3', prevIngredients);
       }
       const newInProgressRecipe = {
         ...inProgressRecipes,

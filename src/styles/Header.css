@@ -1,0 +1,27 @@
+.data-header-container {
+  align-items: center;
+  background-color: #ee6055;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.data-header-title {
+  color: white;
+  font-size: 8vh;
+  font-style: oblique;
+  font-variant-caps: all-small-caps;
+  font-weight: 700;
+  letter-spacing: 2vw;
+  text-shadow: 2px 2px 1px black;
+}
+
+.header-btn {
+  background: none;
+  border: none;
+  padding: 0 10px;
+}
+
+.data-button-img {
+  filter: invert(1);
+}

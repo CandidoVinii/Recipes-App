@@ -1,0 +1,22 @@
+.data-radio-buttons {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: auto;
+  width: 90%;
+}
+
+.data-ingredient-search-radio-label {
+  color: #2f0e07;
+  font-size: 1rem;
+  font-variant-caps: all-small-caps;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px #ddb892;
+  word-spacing: -2px;
+}
+
+.data-recipe-search-radio {
+  margin-right: 5px;
+}
+

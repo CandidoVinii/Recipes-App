@@ -1,6 +1,11 @@
 .data-recipes-container {
-  align-items: center;
+  align-items: flex-start;
+  background-image: url('../../images/food-doodle.jpg');
+  background-position: center;
+  background-repeat: repeat;
+  background-size: contain;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
+  padding: 5vw 0;
 }
