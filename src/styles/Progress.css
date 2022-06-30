@@ -1,7 +1,11 @@
 .data-recipe-info-parent {
+  background-color: #ffafcc;
+  border-radius: 0 0 2.5vmax 2.5vmax;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+  margin-bottom: 2.5vmax;
+  padding: 0 15px;
 }
 
 .data-recipe-title {
@@ -10,7 +14,12 @@
   justify-content: center;
 }
 
+.data-section-title {
+  margin-left: 15px;
+}
+
 .data-buttons {
+  align-items: center;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
@@ -21,6 +30,37 @@
   object-fit: cover;
 }
 
+.buttons {
+  background: none;
+  border: 0;
+  height: fit-content;
+}
+
+.buttons img { width: 5vmax; }
+
+.ingredient-steps {
+  background-color: #bde0fe;
+  border-radius: 2.5vmax;
+  margin: 0 15px 15px;
+  padding: 15px 30px;
+}
+
+.ingredient-checkbox { margin-right: 1vmax; }
+
+.data-ingredient-step {
+  align-items: baseline;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+
+.data-instructions {
+  background-color: #cdb4db;
+  border-radius: 2.5vmax;
+  margin: 0 15px 2.5vmax;
+  padding: 15px;
+}
+
 .data-finish-recipe-btn-parent {
   display: flex;
   flex-flow: row wrap;
@@ -28,26 +68,15 @@
 }
 
 .data-finish-recipe-btn {
-  background-color: greenyellow;
-  border: 0;
+  background-color: #ccd5ae;
+  border: 0 none;
   border-radius: 100px;
   color: white;
   font-size: 2em;
   font-variant: small-caps;
   font-weight: 600;
   height: 10vh;
+  margin-bottom: 2.5vmax;
   text-shadow: black 1px 0 2px;
   width: 75vw;
-}
-
-.btn-fav-share {
-  background: none;
-  border: 0;
-}
-
-.data-ingredient-step {
-  align-items: baseline;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
 }

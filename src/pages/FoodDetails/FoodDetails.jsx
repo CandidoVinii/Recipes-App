@@ -5,7 +5,6 @@ import RecipeDetail from '../../components/RecipeDetail/RecipeDetail';
 import RecomendationsCarrousel from
 '../../components/RecomendationsCarrousel/RecomendationsCarrousel';
 import Context from '../../context/Context';
-import './FoodDetails.css';
 
 export default function FoodDetails() {
   const { selectedFood, recomendations,
@@ -31,7 +30,7 @@ export default function FoodDetails() {
     return ingredients.filter((object) => object !== null);
   };
   return (
-    <div className="food-details">
+    <>
       {selectedFood
       && <RecipeDetail
         id={ selectedFood.idMeal }
@@ -61,6 +60,6 @@ export default function FoodDetails() {
           return null;
         })}
       </RecomendationsCarrousel>
-    </div>
+    </>
   );
 }

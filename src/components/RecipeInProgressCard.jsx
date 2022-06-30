@@ -114,7 +114,7 @@ function RecipeInProgressCard({
             <div className="data-buttons">
               <button
                 type="button"
-                className="btn-fav-share"
+                className="buttons"
                 data-testid="share-btn"
                 onClick={ () => copyRecipeUrl() }
               >
@@ -122,7 +122,7 @@ function RecipeInProgressCard({
               </button>
               <button
                 type="button"
-                className="btn-fav-share"
+                className="buttons"
                 onClick={ favoriteRecipeHandler }
               >
                 <img
@@ -135,8 +135,8 @@ function RecipeInProgressCard({
           </section>
           { copy && <p>Link copied!</p>}
           <section className="data-ingredients-parent">
-            <h3 className="data-ingredients-title">Ingredients</h3>
-            <div className="data-ingredients">
+            <h3 className="data-section-title">Ingredients</h3>
+            <div className="ingredient-steps">
               {ingredientSteps.map((step, index) => (
                 <div
                   className="data-ingredient-step"
@@ -144,6 +144,7 @@ function RecipeInProgressCard({
                   data-testid={ `${index}-ingredient-step` }
                 >
                   <input
+                    className="ingredient-checkbox"
                     type="checkbox"
                     name={ index }
                     id={ `${index}-ingredient-step` }
@@ -156,7 +157,7 @@ function RecipeInProgressCard({
             </div>
           </section>
           <section className="data-instructions-parent">
-            <h3 className="data-instructions-title">Instructions</h3>
+            <h3 className="data-section-title">Instructions</h3>
             <div className="data-instructions" data-testid="instructions">
               {recipe.strInstructions}
             </div>
