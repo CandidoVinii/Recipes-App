@@ -1,10 +1,11 @@
 .data-category-buttons-container {
   align-items: center;
+  background-color: #cbffad;
   display: flex;
   flex-flow: row wrap;
   flex-grow: 1;
   justify-content: space-evenly;
-  margin: auto;
+  margin: 0 auto;
   width: 95%;
 }
 
@@ -12,7 +13,7 @@
   background: none;
   border: none;
   border-bottom: 1px solid #7d7c83;
-  color: #7d7c83;
+  color: black;
   flex: 1 1 auto;
   font-size: 1em;
   font-weight: 600;
@@ -20,14 +21,22 @@
 }
 
 .data-category-buttons:hover {
-  border-bottom: 3px solid #ec2333;
-  color: #ec2333;
+  border-bottom: 3px solid #2b3650;
+  color: #2b3650;
   padding-bottom: 0;
 }
 
 .data-selected-category {
   color: black;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  margin: 1vh 2vw 2vh;
+  margin: 0;
+  text-align: center;
+}
+
+.filter-buttons-section {
+  background-color: #cbffad;
+  border-radius: 2.5vmax;
+  margin: 1.25vmax;
+  padding: 1vmax;
 }

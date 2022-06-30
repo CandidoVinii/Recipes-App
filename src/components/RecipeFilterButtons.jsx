@@ -44,7 +44,7 @@ function RecipeFilterButtons({ history }) {
   }, [pathname]);
 
   return (
-    <>
+    <section className="filter-buttons-section">
       <div className="data-category-buttons-container">
         <button
           className="data-category-buttons"
@@ -85,7 +85,7 @@ function RecipeFilterButtons({ history }) {
             )
         }
       </div>
-    </>
+    </section>
   );
 }
 
