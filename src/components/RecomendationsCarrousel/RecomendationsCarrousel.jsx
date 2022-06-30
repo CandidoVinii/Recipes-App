@@ -9,7 +9,6 @@ function RecomendationsCarrousel({ children }) {
       className="recomendations"
     >
       {children}
-
     </div>
   );
 }
