@@ -78,7 +78,9 @@ function RecipeDetail({
       <section className="recipe-info-container">
         <header className="recipe-title">
           <h1 data-testid="recipe-title">{title}</h1>
-          <h4 data-testid="recipe-category">{category}</h4>
+          {isFood
+            ? <h4 data-testid="recipe-category">{category}</h4>
+            : <h4 data-testid="recipe-category">{alcoholicOrNot}</h4>}
         </header>
         <div className="buttons-container">
           <button
@@ -104,7 +106,7 @@ function RecipeDetail({
       {copiedRecipe && <p>Link copied!</p>}
 
       {/* <span data-testid="recipe-category">{category}</span> */}
-      <span data-testid="recipe-category">{alcoholicOrNot}</span>
+      {/* <span data-testid="recipe-category">{alcoholicOrNot}</span> */}
       <ul>
         {ingredients.map((ingredient, index) => (
           <li
