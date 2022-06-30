@@ -5,7 +5,6 @@ import RecipeDetail from '../../components/RecipeDetail/RecipeDetail';
 import RecomendationsCarrousel from
 '../../components/RecomendationsCarrousel/RecomendationsCarrousel';
 import Context from '../../context/Context';
-import './FoodDetails.css';
 
 export default function FoodDetails() {
   const { selectedFood, recomendations,
