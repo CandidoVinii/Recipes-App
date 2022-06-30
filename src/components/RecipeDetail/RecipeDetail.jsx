@@ -104,10 +104,7 @@ function RecipeDetail({
         </div>
       </section>
       {copiedRecipe && <p>Link copied!</p>}
-
-      {/* <span data-testid="recipe-category">{category}</span> */}
-      {/* <span data-testid="recipe-category">{alcoholicOrNot}</span> */}
-      <ul>
+      <ul className="ingredient-list">
         {ingredients.map((ingredient, index) => (
           <li
             key={ index }
@@ -117,7 +114,7 @@ function RecipeDetail({
           </li>
         ))}
       </ul>
-      <p data-testid="instructions">{instructions}</p>
+      <p className="instructions" data-testid="instructions">{instructions}</p>
       {video
       && <iframe
         className="recipe-video"
