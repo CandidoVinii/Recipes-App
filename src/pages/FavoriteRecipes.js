@@ -35,7 +35,6 @@ function FavoriteRecipes() {
           <img
             src={ recipe.type === 'food' ? mealIcon : drinkIcon }
             alt="mealImage"
-            data-testid={ `${index}-horizontal-image` }
           />
           <img
             src={ recipe.image }
@@ -46,7 +45,10 @@ function FavoriteRecipes() {
             data-testid={ `${index}-horizontal-top-text` }
           >
             {
-              recipe.type === 'food' ? recipe.nationality : recipe.category
+              recipe.type === 'food' ? (
+                `${recipe.nationality} - ${recipe.category}`
+              )
+                : recipe.alcoholicOrNot
             }
           </span>
           <h4 data-testid={ `${index}-horizontal-name` }>
@@ -64,7 +66,7 @@ function FavoriteRecipes() {
             data-testid={ `${index}-horizontal-favorite-btn` }
           >
             <img src={ blackIcon } alt="favorite" />
-            Fav
+            desfavoritar
           </button>
         </div>
       )) }
