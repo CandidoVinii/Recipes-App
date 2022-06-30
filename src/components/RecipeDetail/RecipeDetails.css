@@ -1,8 +1,41 @@
+.recipe-photo {
+  height: 25vh;
+  object-fit: cover;
+  width: 100%;
+}
+
+.recipe-info-container {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+}
+
+.recipe-title {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+}
+
+.buttons-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+
+.buttons {
+  background: none;
+  border: 0;
+}
+
 .details {
   display: flex;
   flex-direction: column;
   gap: 8px;
   width: 90vw;
+}
+
+.recipe-video {
+  width: 100%;
 }
 
 .start-recipe {
