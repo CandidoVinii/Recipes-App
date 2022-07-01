@@ -28,7 +28,7 @@ function Login() {
           data-testid="email-input"
           value={ email }
           onChange={ (event) => setEmail(event.target.value) }
-          placeholder="email@xample.com"
+          placeholder="user@example.com"
         />
         <input
           className="data-login-input"
