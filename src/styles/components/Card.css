@@ -1,0 +1,80 @@
+.done-recipes-container {
+  align-content: center;
+  background-color: #adcbff;
+  border-radius: 2.5vmax;
+  display: flex;
+  flex-flow: column wrap;
+  padding: 1.25vmax;
+}
+
+.recipe-card {
+  background-color: #f8f7ff;
+  border-radius: 2.5vmax;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-flow: row wrap;
+  height: fit-content;
+  justify-content: space-between;
+  margin-bottom: 2.5vmax;
+  padding: 1vmax;
+  width: 100%;
+}
+
+.recipe-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  transition: 0.3s ease-out;
+}
+
+.first-column {
+  width: 30%;
+}
+
+.card-image {
+  border-radius: 2.5vmax;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.recipe-info {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.second-column {
+  align-items: center;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  width: 70%;
+}
+
+.flex-row {
+  text-align: center;
+}
+
+.flex-row p {
+  color: black;
+  font-weight: 600;
+  margin: 0;
+}
+
+.recipe-title {
+  color: black;
+  font-weight: 600;
+  margin: 0;
+  text-decoration: none;
+}
+
+.recipe-title:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+}
+
+.button img { width: 5vmax; }

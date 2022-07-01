@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Context from '../context/Context';
 import shareIcon from '../images/shareIcon.svg';
 import 'react-toastify/dist/ReactToastify.css';
-import './CardRecipe/CardRecipe.css';
+import '../styles/components/Card.css';
 
 function Card({ doneRecipes, originalDoneRecipes, setDoneRecipes }) {
   const { doneFilter } = useContext(Context);
@@ -32,57 +32,78 @@ function Card({ doneRecipes, originalDoneRecipes, setDoneRecipes }) {
   }
 
   return (
-    <div>
+    <main className="done-recipes-container">
       { doneRecipes && doneRecipes.map((recipe, index) => (
-        <div key={ index }>
-          <Link to={ `${recipe.type}s/${recipe.id}` }>
-            <img
-              className="done-recipe-card"
-              src={ recipe.image }
-              alt={ recipe.name }
-              data-testid={ `${index}-horizontal-image` }
-            />
-          </Link>
-          {/* <span>{ recipe.nationality }</span> */}
-          <span data-testid={ `${index}-horizontal-top-text` }>
-            { (recipe.type === 'food')
-              ? (`${recipe.nationality} - ${recipe.category}`)
-              : (` ${recipe.alcoholicOrNot || ''}`) }
-          </span>
-          {
-            <Link to={ `${recipe.type}s/${recipe.id}` }>
-              <h4 data-testid={ `${index}-horizontal-name` }>
-                { recipe.name}
-              </h4>
+        <div className="recipe-card" key={ index }>
+          <div className="first-column">
+            <Link className="link" to={ `${recipe.type}s/${recipe.id}` }>
+              <img
+                className="card-image"
+                src={ recipe.image }
+                alt={ recipe.name }
+                data-testid={ `${index}-horizontal-image` }
+              />
             </Link>
-          }
-          {
-            <span data-testid={ `${index}-horizontal-done-date` }>
-              { `Done in : ${recipe.doneDate || 'abobrinha'}` }
-            </span>
-          }
-          <button
-            data-testid={ `${index}-horizontal-share-btn` }
-            type="button"
-            value={ `/${recipe.type}s/${recipe.id}` }
-            onClick={ shareClick }
-            src={ shareIcon }
-          >
-            <img src={ shareIcon } alt={ `Compartilhar receita de ${recipe.name}` } />
-          </button>
-          { recipe.tags.map((tag, indice) => (
-            <div key={ indice }>
-              <span
-                data-testid={ `${index}-${tag}-horizontal-tag` }
+          </div>
+          <div className="second-column">
+            <div className="flex-row">
+              <Link
+                className="recipe-title"
+                to={ `${recipe.type}s/${recipe.id}` }
               >
-                {tag}
-              </span>
+                <h4
+                  className="flex-row"
+                  data-testid={ `${index}-horizontal-name` }
+                >
+                  { recipe.name}
+                </h4>
+              </Link>
             </div>
-          ))}
+            { recipe.tags
+              .map((tag, indice) => (
+                <div className="flex-row" key={ indice }>
+                  <p
+                    data-testid={ `${index}-${tag}-horizontal-tag` }
+                  >
+                    {tag}
+                  </p>
+                </div>
+              ))}
+            <div className="flex-row">
+              <p
+                className="flex-row"
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                { (recipe.type === 'food')
+                  ? (`${recipe.nationality} - ${recipe.category}`)
+                  : (` ${recipe.alcoholicOrNot || ''}`) }
+              </p>
+              <div className="flex-row">
+                <p
+                  data-testid={ `${index}-horizontal-done-date` }
+                >
+                  { `Done in : ${recipe.doneDate}` }
+                </p>
+              </div>
+              <button
+                className="button  flex-row"
+                data-testid={ `${index}-horizontal-share-btn` }
+                type="button"
+                value={ `/${recipe.type}s/${recipe.id}` }
+                onClick={ shareClick }
+                src={ shareIcon }
+              >
+                <img
+                  src={ shareIcon }
+                  alt={ `Compartilhar receita de ${recipe.name}` }
+                />
+              </button>
+            </div>
+          </div>
         </div>
       )) }
       <ToastContainer />
-    </div>
+    </main>
   );
 }
 

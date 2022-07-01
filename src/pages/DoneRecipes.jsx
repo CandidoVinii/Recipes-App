@@ -1,15 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Card from '../components/Card';
 import Header from '../components/Header';
-// import profileIcon from '../images/profileIcon.svg';
 import DoneFilters from '../components/DoneFilters';
-// SETUP DO MOCK - remover mock abaixo após finalização da página de progresso.
-// import mockDoneRecipes from '../tests/Mocks/mockDoneRecipes';
 
 function DoneRecipes() {
-  // SETUP DO MOCK - remover linha abaixo após finalização da página de progresso.
-  // localStorage.setItem('doneRecipes', JSON.stringify(mockDoneRecipes));
-
   const [originalDoneRecipes, setOriginalDoneRecipes] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
 

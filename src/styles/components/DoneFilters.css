@@ -1,0 +1,26 @@
+.filter-buttons-container {
+  background-color: #cbffad;
+  border-radius: 100vmax;
+  display: flex;
+  height: 5vmax;
+  justify-content: center;
+  margin: 1.25vmax auto;
+  width: 62.5%;
+}
+
+.filter-btn {
+  background-color: transparent;
+  border: none;
+  color: black;
+  font-size: 1em;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+  width: 10vmax;
+}
+
+.filter-btn:hover {
+  border-bottom: 3px solid #2b3650;
+  color: #2b3650;
+}
