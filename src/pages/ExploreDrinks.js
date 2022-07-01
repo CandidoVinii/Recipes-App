@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../styles/Explore/Explore.css';
 
 function ExploreDrinks() {
   const history = useHistory();
@@ -23,22 +24,25 @@ function ExploreDrinks() {
 
       <Footer />
 
-      <Link to="/explore/drinks/ingredients">
+      <main className="main-explore-container">
+        <Link to="/explore/drinks/ingredients">
+          <button
+            className="explore-button"
+            data-testid="explore-by-ingredient"
+            type="button"
+          >
+            By Ingredient
+          </button>
+        </Link>
         <button
-          data-testid="explore-by-ingredient"
+          className="explore-button"
+          data-testid="explore-surprise"
           type="button"
+          onClick={ drinksRadom }
         >
-          By Ingredient
+          Surprise me!
         </button>
-      </Link>
-
-      <button
-        data-testid="explore-surprise"
-        type="button"
-        onClick={ drinksRadom }
-      >
-        Surprise me!
-      </button>
+      </main>
     </>
   );
 }

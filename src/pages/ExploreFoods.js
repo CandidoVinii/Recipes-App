@@ -22,32 +22,34 @@ function ExploreFoods() {
       />
 
       <Footer />
-
-      <Link to="/explore/foods/ingredients">
+      <main className="main-explore-container">
+        <Link to="/explore/foods/ingredients">
+          <button
+            className="explore-button"
+            data-testid="explore-by-ingredient"
+            type="button"
+          >
+            By Ingredient
+          </button>
+        </Link>
+        <Link to="/explore/foods/nationalities">
+          <button
+            className="explore-button"
+            data-testid="explore-by-nationality"
+            type="button"
+          >
+            By Nationality
+          </button>
+        </Link>
         <button
-          data-testid="explore-by-ingredient"
+          className="explore-button"
+          data-testid="explore-surprise"
           type="button"
+          onClick={ foodRadom }
         >
-          By Ingredient
+          Surprise me!
         </button>
-      </Link>
-
-      <Link to="/explore/foods/nationalities">
-        <button
-          data-testid="explore-by-nationality"
-          type="button"
-        >
-          By Nationality
-        </button>
-      </Link>
-
-      <button
-        data-testid="explore-surprise"
-        type="button"
-        onClick={ foodRadom }
-      >
-        Surprise me!
-      </button>
+      </main>
     </>
   );
 }
