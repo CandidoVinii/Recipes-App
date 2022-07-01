@@ -9,6 +9,7 @@ function FavoriteRecipes() {
   const [saveds, setSaveds] = useState([]);
   const [filter, setFilter] = useState('all');
   const [isURLcopied, setCopiedURL] = useState(false);
+  const [isFavorite, setFavorite] = useState(true);
 
   const getToken = () => {
     const getitens = JSON.parse(localStorage.getItem('favoriteRecipes'));
