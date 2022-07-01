@@ -46,6 +46,30 @@ function RecipeInProgressCard({
     }
   }, [recipeID]);
 
+  const setRecipesToStorage = () => {
+    const item = JSON.parse(localStorage.getItem('doneRecipes'));
+    const recipe = recipeArr[0];
+    const arrayTags = recipe.strTags && recipe.strTags.replaceAll(',', ', ').split(', ');
+    const recipeObj = {
+      id: recipe.idMeal || recipe.idDrink,
+      type: recipe.idDrink ? 'drink' : 'food',
+      nationality: recipe.strArea || '',
+      category: recipe.strCategory || '',
+      alcoholicOrNot: recipe.strAlcoholic || '',
+      name: recipe.strMeal || recipe.strDrink,
+      image: recipe.strMealThumb || recipe.strDrinkThumb,
+      doneDate: new Date().toLocaleDateString(),
+      tags: arrayTags || [],
+    };
+    if (item) {
+      const newItem = [...item, recipeObj];
+      localStorage.setItem('doneRecipes', JSON.stringify(newItem));
+    } else {
+      localStorage.setItem('doneRecipes', JSON.stringify([recipeObj]));
+    }
+    history.push('/done-recipes');
+  };
+
   const favoriteRecipeHandler = () => {
     setIsFavorite(true);
     const recipe = recipeArr[0];
@@ -90,7 +114,7 @@ function RecipeInProgressCard({
             <div className="data-buttons">
               <button
                 type="button"
-                className="btn-fav-share"
+                className="buttons"
                 data-testid="share-btn"
                 onClick={ () => copyRecipeUrl() }
               >
@@ -98,7 +122,7 @@ function RecipeInProgressCard({
               </button>
               <button
                 type="button"
-                className="btn-fav-share"
+                className="buttons"
                 onClick={ favoriteRecipeHandler }
               >
                 <img
@@ -111,8 +135,8 @@ function RecipeInProgressCard({
           </section>
           { copy && <p>Link copied!</p>}
           <section className="data-ingredients-parent">
-            <h3 className="data-ingredients-title">Ingredients</h3>
-            <div className="data-ingredients">
+            <h3 className="data-section-title">Ingredients</h3>
+            <div className="ingredient-steps">
               {ingredientSteps.map((step, index) => (
                 <div
                   className="data-ingredient-step"
@@ -120,6 +144,7 @@ function RecipeInProgressCard({
                   data-testid={ `${index}-ingredient-step` }
                 >
                   <input
+                    className="ingredient-checkbox"
                     type="checkbox"
                     name={ index }
                     id={ `${index}-ingredient-step` }
@@ -132,7 +157,7 @@ function RecipeInProgressCard({
             </div>
           </section>
           <section className="data-instructions-parent">
-            <h3 className="data-instructions-title">Instructions</h3>
+            <h3 className="data-section-title">Instructions</h3>
             <div className="data-instructions" data-testid="instructions">
               {recipe.strInstructions}
             </div>
@@ -142,7 +167,7 @@ function RecipeInProgressCard({
               type="button"
               className="data-finish-recipe-btn"
               data-testid="finish-recipe-btn"
-              onClick={ () => history.push('/done-recipes') }
+              onClick={ setRecipesToStorage }
               disabled={ !isRecipeFinished }
               // TODO: Tentar fazer a verificação aqui.
               // disabled={ !inProgressRecipes[recipeType][recipeID].length

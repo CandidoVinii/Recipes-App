@@ -36,6 +36,11 @@ function RecipeDetail({
   function copyToClipboard() {
     navigator.clipboard.writeText(window.location.href);
     setCopiedRecipe(true);
+    const TWO_SECONDS = 2000;
+    const interval = setInterval(() => {
+      setCopiedRecipe(false);
+      clearInterval(interval);
+    }, TWO_SECONDS);
   }
 
   const handleFavorite = () => {
@@ -63,34 +68,43 @@ function RecipeDetail({
   }, [id]);
 
   return (
-    <div className="details">
-      <img data-testid="recipe-photo" src={ image } alt={ title } />
-      <h1 data-testid="recipe-title">{title}</h1>
-
-      <button
-        onClick={ copyToClipboard }
-        data-testid="share-btn"
-        type="button"
-        src={ shareIcon }
-      >
-        <img src={ shareIcon } alt="share" />
-        share
-      </button>
+    <div className="recipe-details-container">
+      <img
+        className="recipe-photo"
+        data-testid="recipe-photo"
+        src={ image }
+        alt={ title }
+      />
+      <section className="recipe-info-container">
+        <header className="recipe-title">
+          <h1 data-testid="recipe-title">{title}</h1>
+          {isFood
+            ? <h4 data-testid="recipe-category">{category}</h4>
+            : <h4 data-testid="recipe-category">{alcoholicOrNot}</h4>}
+        </header>
+        <div className="buttons-container">
+          <button
+            className="buttons"
+            onClick={ copyToClipboard }
+            data-testid="share-btn"
+            type="button"
+            src={ shareIcon }
+          >
+            <img src={ shareIcon } alt="share" />
+          </button>
+          <button
+            className="buttons"
+            onClick={ handleFavorite }
+            data-testid="favorite-btn"
+            type="button"
+            src={ favIcon }
+          >
+            <img src={ favIcon } alt="" />
+          </button>
+        </div>
+      </section>
       {copiedRecipe && <p>Link copied!</p>}
-
-      <button
-        onClick={ handleFavorite }
-        data-testid="favorite-btn"
-        type="button"
-        src={ favIcon }
-      >
-        <img src={ favIcon } alt="" />
-        favorite
-      </button>
-
-      <span data-testid="recipe-category">{category}</span>
-      <span data-testid="recipe-category">{alcoholicOrNot}</span>
-      <ul>
+      <ul className="ingredient-list">
         {ingredients.map((ingredient, index) => (
           <li
             key={ index }
@@ -100,9 +114,10 @@ function RecipeDetail({
           </li>
         ))}
       </ul>
-      <p data-testid="instructions">{instructions}</p>
+      <p className="instructions" data-testid="instructions">{instructions}</p>
       {video
       && <iframe
+        className="recipe-video"
         data-testid="video"
         width={
           parseInt(document.getElementById('root').offsetWidth, 10)

@@ -1,25 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '../components/Card';
 import Header from '../components/Header';
-import profileIcon from '../images/profileIcon.svg';
+// import profileIcon from '../images/profileIcon.svg';
 import DoneFilters from '../components/DoneFilters';
-
-const mock = [{
-  id: 16541654,
-  type: 'food',
-  nationality: 'peruana',
-  category: 'sobremesa',
-  alcoholicOrNot: [],
-  name: 'Torta de Mirtillo',
-  image: profileIcon,
-  doneDate: '23/05/2021',
-  tags: ['gelada', 'doce'],
-}];
+// SETUP DO MOCK - remover mock abaixo após finalização da página de progresso.
+// import mockDoneRecipes from '../tests/Mocks/mockDoneRecipes';
 
 function DoneRecipes() {
-  localStorage.setItem('doneRecipes', JSON.stringify(mock));
+  // SETUP DO MOCK - remover linha abaixo após finalização da página de progresso.
+  // localStorage.setItem('doneRecipes', JSON.stringify(mockDoneRecipes));
 
-  const completeRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const [originalDoneRecipes, setOriginalDoneRecipes] = useState([]);
+  const [doneRecipes, setDoneRecipes] = useState([]);
+
+  useEffect(() => {
+    const completeRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (completeRecipes) {
+      setOriginalDoneRecipes(completeRecipes);
+      setDoneRecipes(completeRecipes);
+    }
+  }, []);
 
   return (
     <>
@@ -28,7 +28,14 @@ function DoneRecipes() {
         shouldHaveSearchButton={ false }
       />
       <DoneFilters />
-      <Card recipes={ completeRecipes } />
+      {
+        doneRecipes
+      && <Card
+        doneRecipes={ doneRecipes }
+        originalDoneRecipes={ originalDoneRecipes }
+        setDoneRecipes={ setDoneRecipes }
+      />
+      }
     </>
   );
 }
