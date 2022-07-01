@@ -12,11 +12,14 @@
 
 .profile-buttons-container {
   align-items: center;
+  background-color: #bde0fe;
+  border-radius: 2.5vmax;
   display: flex;
   flex-flow: column wrap;
   height: fit-content;
   justify-content: center;
-  margin: 30% 0;
+  margin: 30% 2.5vmax;
+  padding-top: 2.5vmax;
 }
 
 .profile-button {
