@@ -6,8 +6,8 @@
 .profile-email {
   background-color: #cbffad;
   border-radius: 100vmax;
-  padding: 1.25vmax 2.5vmax;
   margin: 1.25vmax;
+  padding: 1.25vmax 2.5vmax;
 }
 
 .profile-buttons-container {
@@ -22,7 +22,7 @@
 .profile-button {
   background-color: #cdb4db;
   border: 0 none;
-  border-radius: .5vmax;
+  border-radius: 0.5vmax;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
   margin-bottom: 2.5vmax;
   padding: 1.25vmax 2.5vmax;
