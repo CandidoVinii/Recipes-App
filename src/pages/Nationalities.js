@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../styles/Home/RecipeCard.css';
+import '../styles/Home/Home.css';
+import '../styles/Explore/Nationalities.css';
 
 function Nationalities() {
   const [options, setOptions] = useState([]);
@@ -45,12 +48,14 @@ function Nationalities() {
         title="Explore Nationalities"
         shouldHaveSearchButton
       />
-      <select
-        data-testid="explore-by-nationality-dropdown"
-        onChange={ handleClick }
-      >
-        <option data-testid="All-option" value="All">All</option>
-        {options
+      <section className="nationality-select-section">
+        <select
+          className="nationality-select"
+          data-testid="explore-by-nationality-dropdown"
+          onChange={ handleClick }
+        >
+          <option data-testid="All-option" value="All">All</option>
+          {options
           && options.map((item) => (
             <option
               key={ item.strArea }
@@ -59,48 +64,64 @@ function Nationalities() {
             >
               {item.strArea}
             </option>))}
-      </select>
-      {
-        recipes.length === 0 && allRecipes.length > 0 ? (
-          allRecipes.slice(0, magic).map((item, index) => (
-            <div key={ `recipe-${index}` }>
-              <Link
-                data-testid={ `${index}-recipe-card` }
-                to={ `/foods/${item.idMeal}` }
+        </select>
+      </section>
+      <main className="data-recipes-container">
+        {
+          recipes.length === 0 && allRecipes.length > 0 ? (
+            allRecipes.slice(0, magic).map((item, index) => (
+              <div
+                className="data-recipe-card-container"
+                key={ `recipe-${index}` }
               >
-                <img
-                  data-testid={ `${index}-card-img` }
-                  src={ item.strMealThumb }
-                  alt={ item.strIdMeal }
-                  width="100px"
-                />
-                <p data-testid={ `${index}-card-name` }>
-                  { item.strMeal }
-                </p>
-              </Link>
-            </div>
-          ))
-        ) : (
-          recipes.slice(0, magic).map((elemen, i) => (
-            <div key={ `recipe-${i}` }>
-              <Link
-                data-testid={ `${i}-recipe-card` }
-                to={ `/${elemen.idMeal}` }
+                <Link
+                  data-testid={ `${index}-recipe-card` }
+                  to={ `/foods/${item.idMeal}` }
+                >
+                  <img
+                    className="data-recipe-card-thumb"
+                    data-testid={ `${index}-card-img` }
+                    src={ item.strMealThumb }
+                    alt={ item.strIdMeal }
+                  />
+                  <p
+                    className="data-recipe-card-title"
+                    data-testid={ `${index}-card-name` }
+                  >
+                    { item.strMeal }
+                  </p>
+                </Link>
+              </div>
+            ))
+          ) : (
+            recipes.slice(0, magic).map((elemen, i) => (
+              <div
+                className="data-recipe-card-container"
+                key={ `recipe-${i}` }
               >
-                <img
-                  data-testid={ `${i}-card-img` }
-                  src={ elemen.strMealThumb }
-                  alt={ elemen.strIdMeal }
-                  width="100px"
-                />
-                <p data-testid={ `${i}-card-name` }>
-                  { elemen.strMeal }
-                </p>
-              </Link>
-            </div>
-          ))
-        )
-      }
+                <Link
+                  data-testid={ `${i}-recipe-card` }
+                  to={ `/${elemen.idMeal}` }
+                >
+                  <img
+                    className="data-recipe-card-thumb"
+                    data-testid={ `${i}-card-img` }
+                    src={ elemen.strMealThumb }
+                    alt={ elemen.strIdMeal }
+                    width="100px"
+                  />
+                  <p
+                    className="data-recipe-card-title"
+                    data-testid={ `${i}-card-name` }
+                  >
+                    { elemen.strMeal }
+                  </p>
+                </Link>
+              </div>
+            ))
+          )
+        }
+      </main>
       <Footer />
     </>
   );

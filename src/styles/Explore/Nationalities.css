@@ -1,0 +1,13 @@
+.nationality-select-section {
+  display: flex;
+  justify-content: flex-end;
+  margin: 1.25vmax;
+}
+
+.nationality-select {
+  background-color: #cbffad;
+  border: 0 none;
+  border-radius: 100vmax;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+  padding: 1.25vmax 2.5vmax;
+}
