@@ -101,7 +101,7 @@ function Nationalities() {
               >
                 <Link
                   data-testid={ `${i}-recipe-card` }
-                  to={ `/${elemen.idMeal}` }
+                  to={ `/foods/${elemen.idMeal}` }
                 >
                   <img
                     className="data-recipe-card-thumb"
