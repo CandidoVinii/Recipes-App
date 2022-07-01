@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import '../styles/Home/RecipeCard.css';
 
 function RecipeCard({ props }) {
   const { index, pathname, recipe } = props;
