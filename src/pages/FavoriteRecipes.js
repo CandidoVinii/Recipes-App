@@ -2,14 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
-import whiteIcon from '../images/whiteHeartIcon.svg';
 import blackIcon from '../images/blackHeartIcon.svg';
 
 function FavoriteRecipes() {
   const [saveds, setSaveds] = useState([]);
-  const [filter, setFilter] = useState('all');
   const [isURLcopied, setCopiedURL] = useState(false);
-  const [isFavorite, setFavorite] = useState(true);
 
   const getToken = () => {
     const getitens = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -17,12 +14,29 @@ function FavoriteRecipes() {
       setSaveds(getitens);
     }
   };
-  const filterClick = ({ target }) => {
-    setFilter(target.name);
-    if (filter !== 'all') {
-      const Arra = saveds.filter((item) => item.type === filter);
-      setSaveds(Arra);
-    } else if (filter === 'all') {
+
+  const removeFavorite = (recipes) => {
+    setSaveds(saveds.filter((saved) => saved.id !== recipes.id));
+    const getitens = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const newFavoriteRecipes = getitens.filter((recipe) => recipe.id !== recipes.id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+  };
+
+  function copyToClipboard() {
+    navigator.clipboard.writeText(window.location.href);
+    setCopiedURL(true);
+    const TWO_SECONDS = 2000;
+    const interval = setInterval(() => {
+      setCopiedURL(false);
+      clearInterval(interval);
+    }, TWO_SECONDS);
+  }
+
+  const filterClick = (type) => {
+    const getitens = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (type !== 'all') {
+      setSaveds(getitens.filter((recipe) => recipe.type === type));
+    } else if (type === 'all') {
       getToken();
     }
   };
@@ -31,7 +45,6 @@ function FavoriteRecipes() {
     getToken();
   }, []);
 
-  console.log(filter);
   console.log(saveds);
 
   return (
@@ -45,7 +58,7 @@ function FavoriteRecipes() {
           data-testid="filter-by-all-btn"
           type="button"
           name="all"
-          onClick={ filterClick }
+          onClick={ () => filterClick('all') }
         >
           All
         </button>
@@ -53,7 +66,7 @@ function FavoriteRecipes() {
           data-testid="filter-by-food-btn"
           type="button"
           name="food"
-          onClick={ filterClick }
+          onClick={ () => filterClick('food') }
         >
           Food
         </button>
@@ -61,12 +74,12 @@ function FavoriteRecipes() {
           data-testid="filter-by-drink-btn"
           type="button"
           name="drink"
-          onClick={ filterClick }
+          onClick={ () => filterClick('drink') }
         >
           Drink
         </button>
       </div>
-      { saveds.length > 1 && saveds.map((recipe, index) => (
+      { saveds.length > 0 && saveds.map((recipe, index) => (
         <div key={ index }>
           <Link to={ `${recipe.type}s/${recipe.id}` }>
             <img
@@ -88,11 +101,7 @@ function FavoriteRecipes() {
           <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate }</p>
           <button
             type="button"
-            onClick={ () => {
-              const url = `http://localhost:3000/foods/${recipe.id}`;
-              navigator.clipboard.writeText(url);
-              setCopiedURL(true);
-            } }
+            onClick={ () => copyToClipboard() }
           >
             <img
               data-testid={ `${index}-horizontal-share-btn` }
@@ -100,19 +109,20 @@ function FavoriteRecipes() {
               alt="Share"
               className="share-icon"
             />
-            { isURLcopied && <p>Link copied!</p> }
           </button>
           <button
             type="button"
             data-testid={ `${index}-horizontal-favorite-btn` }
-            src={ isFavorite ? blackIcon : whiteIcon }
+            src={ blackIcon }
+            onClick={ () => removeFavorite(recipe) }
           >
             <img
-              src={ isFavorite ? blackIcon : whiteIcon }
+              src={ blackIcon }
               alt="Favorite"
               className="favorite-icon"
             />
           </button>
+          { isURLcopied && <p>Link copied!</p> }
         </div>
       )) }
     </>
