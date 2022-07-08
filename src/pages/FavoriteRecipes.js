@@ -22,16 +22,6 @@ function FavoriteRecipes() {
     localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
   };
 
-  function copyToClipboard() {
-    navigator.clipboard.writeText(window.location.href);
-    setCopiedURL(true);
-    const TWO_SECONDS = 2000;
-    const interval = setInterval(() => {
-      setCopiedURL(false);
-      clearInterval(interval);
-    }, TWO_SECONDS);
-  }
-
   const filterClick = (type) => {
     const getitens = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (type !== 'all') {
@@ -101,7 +91,11 @@ function FavoriteRecipes() {
           <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate }</p>
           <button
             type="button"
-            onClick={ () => copyToClipboard() }
+            onClick={ () => {
+              const url = `http://localhost:3000/foods/${recipe.id}`;
+              navigator.clipboard.writeText(url);
+              setCopiedURL(true);
+            } }
           >
             <img
               data-testid={ `${index}-horizontal-share-btn` }
