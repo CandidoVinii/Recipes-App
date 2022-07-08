@@ -43,9 +43,17 @@ function FavoriteRecipes() {
         title="Favorite Recipes"
         shouldHaveSearchButton={ false }
       />
-      <div>
+      <div
+        style={ {
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '10px',
+          borderRadius: '20px',
+        } }
+      >
         <button
           data-testid="filter-by-all-btn"
+          style={ { marginRight: '2px', padding: '6px' } }
           type="button"
           name="all"
           onClick={ () => filterClick('all') }
@@ -54,6 +62,7 @@ function FavoriteRecipes() {
         </button>
         <button
           data-testid="filter-by-food-btn"
+          style={ { marginRight: '2px' } }
           type="button"
           name="food"
           onClick={ () => filterClick('food') }
@@ -69,54 +78,105 @@ function FavoriteRecipes() {
           Drink
         </button>
       </div>
+      { isURLcopied && <p>Link copied!</p> }
       { saveds.length > 0 && saveds.map((recipe, index) => (
-        <div key={ index }>
-          <Link to={ `${recipe.type}s/${recipe.id}` }>
-            <img
-              alt={ recipe.name }
-              src={ recipe.image }
-              data-testid={ `${index}-horizontal-image` }
-            />
-          </Link>
-          <p data-testid={ `${index}-horizontal-top-text` }>
-            { recipe.type === 'food' ? (
-              `${recipe.nationality} - ${recipe.category}`
-            ) : (
-              recipe.alcoholicOrNot
-            ) }
-          </p>
-          <Link to={ `${recipe.type}s/${recipe.id}` }>
-            <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>
-          </Link>
-          <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate }</p>
-          <button
-            type="button"
-            onClick={ () => {
-              const url = `http://localhost:3000/foods/${recipe.id}`;
-              navigator.clipboard.writeText(url);
-              setCopiedURL(true);
+        <div
+          style={ { display: 'flex',
+            background: '#bde0fe',
+            borderRadius: '20px',
+            height: '18.3rem',
+            width: '80%',
+            alignItems: 'center',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            marginLeft: '10%',
+            marginTop: '10px' } }
+          key={ index }
+        >
+          <div
+            style={ { display: 'flex', justifyContent: 'center', alignItems: 'center' } }
+          >
+            <Link to={ `${recipe.type}s/${recipe.id}` }>
+              <img
+                alt={ recipe.name }
+                src={ recipe.image }
+                style={ { height: '25vh', borderRadius: '20px' } }
+                data-testid={ `${index}-horizontal-image` }
+              />
+            </Link>
+          </div>
+          <div
+            style={ {
+              marginTop: '2px',
+              background: '#cdb4db',
+              width: '100%',
+              height: '22vh',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-evenly',
+              borderRadius: '18px',
             } }
           >
-            <img
-              data-testid={ `${index}-horizontal-share-btn` }
-              src={ shareIcon }
-              alt="Share"
-              className="share-icon"
-            />
-          </button>
-          <button
-            type="button"
-            data-testid={ `${index}-horizontal-favorite-btn` }
-            src={ blackIcon }
-            onClick={ () => removeFavorite(recipe) }
-          >
-            <img
-              src={ blackIcon }
-              alt="Favorite"
-              className="favorite-icon"
-            />
-          </button>
-          { isURLcopied && <p>Link copied!</p> }
+            <p
+              style={ { textAlign: 'center' } }
+              data-testid={ `${index}-horizontal-top-text` }
+            >
+              { recipe.type === 'food' ? (
+                `${recipe.nationality} - ${recipe.category}`
+              ) : (
+                recipe.alcoholicOrNot
+              ) }
+            </p>
+            <Link to={ `${recipe.type}s/${recipe.id}` }>
+              <p
+                data-testid={ `${index}-horizontal-name` }
+                style={ { textAlign: 'center', fontWeight: 'bold', fontSize: '25px' } }
+              >
+                { recipe.name }
+
+              </p>
+            </Link>
+            <div
+              style={ {
+                display: 'flex',
+                justifyContent: 'center',
+              } }
+            >
+              <button
+                type="button"
+                style={ { marginRight: '5px', borderRadius: '5px' } }
+                onClick={ () => {
+                  const url = `http://localhost:3000/foods/${recipe.id}`;
+                  const time = 1000;
+                  navigator.clipboard.writeText(url);
+                  setCopiedURL(true);
+                  setTimeout(() => {
+                    setCopiedURL(false);
+                  }, time);
+                } }
+              >
+                <img
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  src={ shareIcon }
+                  alt="Share"
+                  className="share-icon"
+                />
+              </button>
+              <button
+                type="button"
+                style={ { marginRight: '5px', borderRadius: '5px' } }
+                data-testid={ `${index}-horizontal-favorite-btn` }
+                src={ blackIcon }
+                onClick={ () => removeFavorite(recipe) }
+              >
+                <img
+                  src={ blackIcon }
+                  alt="Favorite"
+                  className="favorite-icon"
+                />
+              </button>
+            </div>
+          </div>
         </div>
       )) }
     </>

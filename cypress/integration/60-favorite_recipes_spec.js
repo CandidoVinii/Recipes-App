@@ -159,7 +159,7 @@ describe('Favorite recipes screen', () => {
 
   describe('66 - Redirecione a pessoa usuária ao clicar na foto ou no nome da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
     it('Ao clicar na foto da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
-      cy.get('[data-testid="0-horizontal-image"]').click({force: true});
+      cy.get('[data-testid="0-horizontal-image"]').click();
 
       cy.location().should((loc) => expect(loc.pathname).to.eq('/foods/52771'));
     });
